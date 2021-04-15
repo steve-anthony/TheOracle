@@ -29,7 +29,7 @@ app.listen(port, () => {
 app.get('/reports', async function (req, res) {
 	console.log(blacklist);
 	let today = new Date();
-	today.setDate(today.getDate() - 1);
+	//today.setDate(today.getDate() - 1);
 	today.setHours(0, 0, 0);
 
 	let reports = await mongoService.findAndSort(MongoService.REPORT, {

@@ -22,10 +22,11 @@ export class CoinComponent implements OnInit {
       const data1 = [];
       const data2 = [];
 
-      for (let i = 0; i < r.length; i++) {
-        xAxisData.push(r[i].timestamp);
-        data1.push(r[i].youtubeIndex);
-        data2.push(r[i].price);
+
+      for (const element of r) {
+        xAxisData.push(element.timestamp);
+        data1.push(element.youtubeIndex);
+        data2.push(element.price);
       }
 
       this.options = {
