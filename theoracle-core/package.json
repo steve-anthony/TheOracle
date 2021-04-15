@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "mongodb": "^2.2.33",
+    "node-fetch": "^2.6.1",
+    "puppeteer": "^8.0.0",
+    "usetube": "^2.0.5",
+    "youtube-comment-api": "^3.0.2",
+    "youtube-comment-scraper": "^0.2.2",
+    "youtube-comments-task": "^1.3.15",
+    "yt-comment-scraper": "^4.0.1"
+  }
+}
