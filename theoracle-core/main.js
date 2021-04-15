@@ -10,7 +10,7 @@ let mongoService = new MongoService();
 
 console.log();
 console.log("---------------------------------------------");
-console.log("THE ORACLE");
+console.log("THE ORACLE CORE");
 console.log("---------------------------------------------");
 console.log();
 
@@ -275,7 +275,6 @@ async function test() {
 (async () => {
 
 	console.log("Starting...");
-	//return;
 
 	await mongoService.init();
 

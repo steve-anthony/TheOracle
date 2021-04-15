@@ -22,7 +22,6 @@ export class CoinComponent implements OnInit {
       const data1 = [];
       const data2 = [];
 
-
       for (const element of r) {
         xAxisData.push(element.timestamp);
         data1.push(element.youtubeIndex);

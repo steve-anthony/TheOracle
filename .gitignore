@@ -4,3 +4,4 @@
 theoracle/data/mongo
 theoracle/data/mongolog
 */**/node_modules
+theoracle/data/applog

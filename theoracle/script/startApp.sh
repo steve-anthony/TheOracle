@@ -2,9 +2,11 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
+mkdir -p ../data/applog
 
-cd conf/mongo 
-docker-compose down
+cd ../runner
+npm i
+node theoracle-app.js
 
 cd $DIR
 
