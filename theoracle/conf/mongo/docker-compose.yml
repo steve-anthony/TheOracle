@@ -14,11 +14,11 @@ services:
              target: /data/db
            - type: bind
              source: ../../data/mongolog
-             target: /var/log/mongodb/
+             target: /data/log
         ports:
             - 27017:27017
 
-        command: mongod --logpath /var/log/mongodb/mongo.log
+        command: mongod --logpath /data/log/mongo.log
 
         logging:
           driver: "json-file"
