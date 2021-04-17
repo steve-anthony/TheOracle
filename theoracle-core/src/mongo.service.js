@@ -1,26 +1,32 @@
 
 var MongoClient = require('mongodb').MongoClient;
+var PasswordTMP = require('../tmp/password.json');
 
 module.exports = class MongoService {
 
-	url = "mongodb://localhost:27017";
+	url = "localhost:27017";
 	database;
+	user;
+	password;
 
 	static COINS = "coins";
 	static REPORT = "report";
 
 	constructor() {
 
-		if (process.env.MONGO_URL != null) {
-			this.url = process.env.MONGO_URL;
-		}
-
 	}
 
 	async init() {
+		this.user = PasswordTMP[0];
+		this.password = PasswordTMP[1];
+
+		if (process.env.MONGO_URL != null) {
+			this.url = process.env.MONGO_URL;
+		}
+		this.url = "mongodb://" + this.user + ":" + this.password + "@" + this.url;
 
 		try {
-			const client = await MongoClient.connect(this.url);
+			const client = await MongoClient.connect(this.url + "/oraclecrypto");
 			this.database = client.db('oraclecrypto');
 		} catch (err) {
 			console.log(err);

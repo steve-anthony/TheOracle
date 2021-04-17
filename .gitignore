@@ -6,3 +6,4 @@ theoracle/data/mongolog
 */**/node_modules
 theoracle/data/applog
 theoracle/data
+theoracle-core/tmp

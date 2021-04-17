@@ -18,7 +18,7 @@ services:
         ports:
             - 27017:27017
 
-        command: mongod --logpath /data/log/mongo.log
+        command: mongod --auth --logpath /data/log/mongo.log 
 
         networks:
           - proxynet

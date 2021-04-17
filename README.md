@@ -6,6 +6,11 @@ L'app est composée de trois composants:
 - theoracle-back : api rest pour le front 
 - theoracle-front : ihm
 
+
+# INIT DB
+
+db.createUser({user:"theOracleAdmin", pwd:"1234",roles:["readWrite","dbAdmin"]})
+
 ## STARTUP
 
 dans theoracle/script

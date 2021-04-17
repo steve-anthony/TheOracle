@@ -275,7 +275,7 @@ async function test() {
 (async () => {
 
 	console.log("Starting...");
-	return;
+	//return;
 
 	await mongoService.init();
 
