@@ -114,7 +114,7 @@ module.exports = class YoutubeService {
 		});
 		await page.waitFor(2000);
 
-		for (let i = 0; i < 3; i++) {
+		for (let i = 0; i < 5; i++) {
 			try {
 				await page.waitForSelector('#comment:nth-child(1)');
 				break;

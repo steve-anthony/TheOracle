@@ -52,10 +52,7 @@ module.exports = class MongoService {
 
 	async insert(collection, objToInsert) {
 
-		this.database.collection(collection).insertOne(objToInsert, (err, res) => {
-			if (err) throw err;
-			//console.log("1 document inserted");
-		});
+		return await this.database.collection(collection).insertOne(objToInsert);
 
 	}
 
