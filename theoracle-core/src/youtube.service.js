@@ -77,7 +77,7 @@ module.exports = class YoutubeService {
 
 		//return JSON.parse(fileContent);
 
-		const browser = await puppeteer.launch({ headless: true, ignoreDefaultArgs: ['--disable-extensions'] });
+		const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
 		const page = await browser.newPage();
 		await page.setViewport({ width: 1280, height: 800 });
 		await page.cookies();
