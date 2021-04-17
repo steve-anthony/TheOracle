@@ -41,7 +41,7 @@ module.exports = class YoutubeService {
 		console.log(videoArray);
 
 		console.log("search bitboy...");
-		let ytChannel = await this.searchFirstVideo("BitBoy Crypto");
+		let ytChannel = await this.searchFirstVideo("bitboy crypto");
 		videoArray.push(...ytChannel);
 
 		console.log("search sheldon evans...");
@@ -114,7 +114,14 @@ module.exports = class YoutubeService {
 		});
 		await page.waitFor(2000);
 
-		await page.waitForSelector('#comment:nth-child(1)');
+		for (let i = 0; i < 3; i++) {
+			try {
+				await page.waitForSelector('#comment:nth-child(1)');
+				break;
+			} catch (e) {
+				console.log("Scroll comment dont work, retry...");
+			}
+		}
 
 		for (let i = 1; i < 10; i++) {
 			await page.evaluate(_ => {
