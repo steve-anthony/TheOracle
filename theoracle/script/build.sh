@@ -3,6 +3,11 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
 # image docker pour node
+mkdir -rf ../data/mongo
+mkdir -rf ../data/mongolog
+mkdir -rf ../data/applog
+
+# image docker pour node
 cd ../../theoracle/conf/node
 docker build -t node-docker .
 
