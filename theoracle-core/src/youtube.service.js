@@ -21,7 +21,7 @@ module.exports = class YoutubeService {
 		return [];
 	}
 
-	async  getYoutubeVideos() {
+	async getYoutubeVideos() {
 
 		//const fileContent = await fs.readFile('data/channels.json');
 
@@ -77,7 +77,7 @@ module.exports = class YoutubeService {
 
 		//return JSON.parse(fileContent);
 
-		const browser = await puppeteer.launch({ headless: true });
+		const browser = await puppeteer.launch({ headless: true, ignoreDefaultArgs: ['--disable-extensions'] });
 		const page = await browser.newPage();
 		await page.setViewport({ width: 1280, height: 800 });
 		await page.cookies();
@@ -140,7 +140,7 @@ module.exports = class YoutubeService {
 		return commentsArrays;
 	}
 
-	async  seaarchCoinInComments(comments, coins, mapOccurenceByCoins) {
+	async seaarchCoinInComments(comments, coins, mapOccurenceByCoins) {
 
 		console.log("search");
 		// get coin symbol
@@ -189,7 +189,7 @@ module.exports = class YoutubeService {
 
 	}
 
-	async  getMapOccurenceByCoinsInYoutube(coins) {
+	async getMapOccurenceByCoinsInYoutube(coins) {
 
 		const youtubeSearch = await this.getYoutubeVideos();
 
