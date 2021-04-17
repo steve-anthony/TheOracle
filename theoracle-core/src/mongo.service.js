@@ -11,6 +11,10 @@ module.exports = class MongoService {
 
 	constructor() {
 
+		if (process.env.MONGO_URL != null) {
+			this.url = process.env.MONGO_URL;
+		}
+
 	}
 
 	async init() {

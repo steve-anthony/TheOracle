@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-coin',
@@ -17,7 +18,7 @@ export class CoinComponent implements OnInit {
     this.coinId = this.route.snapshot.params.id;
     console.log(this.coinId);
 
-    this.http.get('http://localhost:3000/coin/' + this.coinId).subscribe((r: any) => {
+    this.http.get(environment.backend_url + '/coin/' + this.coinId).subscribe((r: any) => {
       const xAxisData = [];
       const data1 = [];
       const data2 = [];

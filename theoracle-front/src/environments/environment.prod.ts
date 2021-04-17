@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  backend_url: 'http://theoracle-back:3000'
 };

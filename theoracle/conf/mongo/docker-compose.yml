@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.5'
 
 services:
 
@@ -20,8 +20,15 @@ services:
 
         command: mongod --logpath /data/log/mongo.log
 
+        networks:
+          - proxynet
+
         logging:
           driver: "json-file"
           options:
             max-size: "200k"
             max-file: "10"
+
+networks:
+  proxynet:
+    name: custom_network

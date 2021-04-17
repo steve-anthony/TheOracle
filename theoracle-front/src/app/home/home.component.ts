@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 
 export interface PeriodicElement {
   _id: string;
@@ -37,7 +38,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.http.get('http://localhost:3000/reports').subscribe((r: any) => {
+    this.http.get(environment.backend_url + '/reports').subscribe((r: any) => {
       this.dataSource = new MatTableDataSource(r);
       this.dataSource.sort = this.sort;
       this.dataSource.sortingDataAccessor = (data, attribute) => data[attribute];

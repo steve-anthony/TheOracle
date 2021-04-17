@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+
+  theoracle-front:
+    image: node-docker:latest
+    container_name: "theoracle-front"
+    ports:
+      - 5000:5000
+    volumes:
+      - type: bind
+        source: ../../data/dist
+        target: /app
+
+    environment:
+     - BACK_URL=theoracle-back
+        
+    command: node theoracle-front/theoracle-front.js
+
+    networks:
+      - custom_network
+
+networks:
+  custom_network:
+    external:
+      name: custom_network
