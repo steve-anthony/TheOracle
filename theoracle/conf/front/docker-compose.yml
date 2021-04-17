@@ -6,7 +6,7 @@ services:
     image: node-docker:latest
     container_name: "theoracle-front"
     ports:
-      - 5000:5000
+      - 80:5000
     volumes:
       - type: bind
         source: ../../data/dist

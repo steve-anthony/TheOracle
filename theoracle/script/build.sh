@@ -2,6 +2,12 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
+# image docker pour node
+cd ../../theoracle/conf/node
+docker build -t node-docker .
+
+# build frontend
+cd $DIR
 rm -rf ../../theoracle/data/dist
 
 cd ../../theoracle-front
@@ -14,11 +20,13 @@ cp -r ../theoracle/conf/front/package.json ../theoracle/data/dist/theoracle-fron
 cd ../theoracle/data/dist/theoracle-front
 npm i 
 
+# build backend
 cd $DIR
 cd ../../theoracle-back
 npm i
 cp -r ../theoracle-back ../theoracle/data/dist/theoracle-back
 
+# build core
 cd $DIR
 cd ../../theoracle-core
 npm i
