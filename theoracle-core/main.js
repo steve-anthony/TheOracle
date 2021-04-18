@@ -279,9 +279,6 @@ async function test() {
 
 	await mongoService.init();
 
-	//let a = await getIndexForCoin(INDEXTYPE.YOUTUBE, INDEXPERIOD.MONTHTLY, "ada", 2);
-
-	//console.log(a);
 	const coins = await getCoins();
 
 	const mapOccurenceByCoins = await youtubeService.getMapOccurenceByCoinsInYoutube(coins);
@@ -296,20 +293,8 @@ async function test() {
 
 	console.log("This is the end");
 
+	await mongoService.close();
+
 	return;
-
-	/*
-	fs.writeFile('comments.json', JSON.stringify(comms), function (err) {
-		if (err) return console.log(err);
-		console.log('Writed');
-	});
-	*/
-
-	/*
-	for (let i = 0; i < comms.length; i++) {
-		console.log("--");
-		console.log(comms[i]);
-	}
-	*/
 
 })()

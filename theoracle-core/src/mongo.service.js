@@ -29,7 +29,7 @@ module.exports = class MongoService {
 			const client = await MongoClient.connect(this.url + "/oraclecrypto");
 			this.database = client.db('oraclecrypto');
 		} catch (err) {
-			console.log(err);
+			throw new Error('Connexion BDD Fail : ', err);
 		}
 
 	}
@@ -57,7 +57,7 @@ module.exports = class MongoService {
 	}
 
 	async close() {
-		this.database.close();
+		await this.database.close();
 	}
 
 }

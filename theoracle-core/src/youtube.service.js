@@ -14,7 +14,7 @@ module.exports = class YoutubeService {
 		let bitboy = await usetube.searchVideo(name);
 		bitboy = bitboy.videos;
 
-		if (bitboy != null && bitboy.length != -1) {
+		if (bitboy != null && bitboy.length != -1 && bitboy.length != 0) {
 			return [bitboy[0]];
 		}
 
