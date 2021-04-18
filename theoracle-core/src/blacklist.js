@@ -14,5 +14,5 @@ module.exports = [
     'near', 'matter', 'met', 'dev', 'sub', 'ama', 'share', 'gold', 's', '50x', 'her', 'fund', 'set', 'cook', 'post', 'pool', 'stack',
     'bull', 'whole', 'vida', 'power', 'usdc', 'tel', 'id', 'fun', 'credit', 'pass', 'rating', 'spike',
     'boost', 'nuts', 'road', 'sale', 'eyes', 'push', 'bear', 'tsla', 'sxpdown', 'bnbdown', 'spice', 'job', 'icon', 'hodl',
-    'team', 'yt', 'stake', 'room', 'ath', 'sign'
+    'team', 'yt', 'stake', 'room', 'ath', 'sign', 'bags', 'must', 'wise', 'pure', 'strong'
 ]
