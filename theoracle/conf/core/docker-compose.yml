@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+
+  theoracle-core:
+    image: node-docker:latest
+    container_name: "theoracle-core"
+
+    volumes:
+      - type: bind
+        source: ../../data/dist
+        target: /app
+      - type: bind
+        source: ../../data/applog
+        target: /log
+
+    environment:
+     - MONGO_URL=mongodb:27017
+        
+    command: node theoracle-core/main.js
+
+    networks:
+      - custom_network
+
+networks:
+  custom_network:
+    external:
+      name: custom_network

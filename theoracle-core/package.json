@@ -3,6 +3,7 @@
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "mongodb": "^2.2.33",
+    "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
     "puppeteer": "^8.0.0",
     "usetube": "^2.0.5",

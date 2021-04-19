@@ -34,6 +34,11 @@ if [ "$1" = "mongo" ]; then
         exit 0
     fi;
 
+    if [ "$2" = "log" ]; then 
+        docker-compose logs
+        exit 0
+    fi;
+
     cd $DIR
 fi;
 
@@ -49,6 +54,11 @@ if [ "$1" = "front" ]; then
 
     if [ "$2" = "stop" ]; then 
         docker-compose down
+        exit 0
+    fi;
+
+    if [ "$2" = "log" ]; then 
+        docker-compose logs 
         exit 0
     fi;
 
@@ -70,6 +80,11 @@ if [ "$1" = "back" ]; then
         exit 0
     fi;
 
+    if [ "$2" = "log" ]; then 
+        docker-compose logs
+        exit 0
+    fi;
+
     cd $DIR
 fi;
 
@@ -77,8 +92,20 @@ fi;
 if [ "$1" = "core" ]; then 
     
 
+    cd ./conf/core 
     if [ "$2" = "start" ]; then 
-        node ./data/dist/theoracle-core/main.js
+        docker-compose down
+        docker-compose up -d
+        exit 0
+    fi;
+
+    if [ "$2" = "stop" ]; then 
+        docker-compose down
+        exit 0
+    fi;
+
+    if [ "$2" = "log" ]; then 
+        docker-compose logs 
         exit 0
     fi;
 

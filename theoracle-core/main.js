@@ -4,6 +4,7 @@ const YoutubeService = require('./src/youtube.service');
 const MongoService = require('./src/mongo.service');
 const fetch = require('node-fetch');
 const blacklist = require('./src/blacklist');
+var cron = require('node-cron');
 
 let youtubeService = new YoutubeService();
 let mongoService = new MongoService();
@@ -253,28 +254,10 @@ async function getIndexForCoin(type, period, symbol, currentValue) {
 	return 0;
 }
 
-async function test() {
+async function main() {
 
-	let videoArray = [];
-
-	console.log("search bitboy...");
-	let ytChannel = await youtubeService.searchFirstVideo("BitBoy Crypto");
-	videoArray.push(...ytChannel);
-
-	console.log("search sheldon evans...");
-	ytChannel = await youtubeService.searchFirstVideo("sheldon evans");
-	videoArray.push(...ytChannel);
-
-	console.log("search the moon...");
-	ytChannel = await youtubeService.searchFirstVideo("the moon");
-	videoArray.push(...ytChannel);
-
-	console.log(videoArray);
-}
-
-(async () => {
-
-	console.log("Starting...");
+	let today = new Date();
+	console.log(today.toISOString() + ' - Starting...');
 	//return;
 
 	await mongoService.init();
@@ -296,5 +279,18 @@ async function test() {
 	await mongoService.close();
 
 	return;
+}
 
+async function test() {
+	let today = new Date();
+	console.log(today.toISOString() + ' - Starting...');
+
+	return;
+}
+
+(async () => {
+	console.log('Start cron core.');
+	cron.schedule('0 1 * * *', async () => {
+		await main();
+	});
 })()
