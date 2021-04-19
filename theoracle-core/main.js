@@ -274,7 +274,7 @@ async function main() {
 		await mongoService.insert(MongoService.REPORT, oracleIndexByCoins[i]);
 	}
 
-	console.log("This is the end");
+	console.log(today.toISOString() + " - This is the end");
 
 	await mongoService.close();
 
