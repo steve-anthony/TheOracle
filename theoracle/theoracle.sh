@@ -119,12 +119,14 @@ if [ "$1" = "app" ]; then
     if [ "$2" = "start" ]; then 
         ./theoracle.sh front start
         ./theoracle.sh back start
+        ./theoracle.sh core start
         exit 0
     fi;
 
     if [ "$2" = "stop" ]; then 
         ./theoracle.sh front stop
         ./theoracle.sh back stop
+        ./theoracle.sh core stop
         exit 0
     fi;
 
@@ -154,8 +156,7 @@ fi;
 if [ "$1" = "update" ]; then 
     
    
-    ./theoracle.sh front stop
-    ./theoracle.sh back stop
+    ./theoracle.sh app stop
 
     cd ..
     git pull origin develop
