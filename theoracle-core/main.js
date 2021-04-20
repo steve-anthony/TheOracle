@@ -289,6 +289,10 @@ async function test() {
 }
 
 (async () => {
+
+	await main();
+	return;
+
 	console.log('Start cron core.');
 	cron.schedule('0 1 * * *', async () => {
 		await main();

@@ -6,7 +6,7 @@
     <!-- Position Column -->
     <ng-container matColumnDef="timestamp">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.timestamp | date:'dd/MM/YYYY'}} </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -58,7 +58,27 @@
     </ng-container>
     <ng-container matColumnDef="pricePercentMonthlyIndex">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> $%M </th>
-        <td mat-cell *matCellDef="let element"> {{element.pricePercentMonthlyIndex | number : '1.2-2'}} </td>
+        <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.pricePercentMonthlyIndex <= -1 " style="color: red;font-size:20px;">
+                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
+            </span>
+            <span *ngIf="element.pricePercentMonthlyIndex < 0 && element.pricePercentMonthlyIndex > -1"
+                style="color: red;">
+                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
+            </span>
+
+            <span *ngIf="element.pricePercentMonthlyIndex <= 0.5 && element.pricePercentMonthlyIndex >= 0">
+                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
+            </span>
+
+            <span *ngIf="element.pricePercentMonthlyIndex > 0.5 && element.pricePercentMonthlyIndex < 1"
+                style="color: green;">
+                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
+            </span>
+            <span *ngIf="element.pricePercentMonthlyIndex >= 1" style="color: green;font-size:20px;">
+                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
+            </span>
+        </td>
     </ng-container>
 
 
