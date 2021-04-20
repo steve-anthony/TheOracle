@@ -17,7 +17,7 @@ services:
     environment:
      - MONGO_URL=mongodb:27017
         
-    command: node theoracle-core/main.js
+    command: bash -c "cd theoracle-core && rm -rf node_modules && rm -rf package-lock.json && npm i && node main.js"
 
     networks:
       - custom_network
