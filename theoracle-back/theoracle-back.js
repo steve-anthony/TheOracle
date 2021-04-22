@@ -14,17 +14,16 @@ console.log("THE ORACLE BACK");
 console.log("---------------------------------------------");
 console.log();
 
-let mocked = true;
-
-// si une variable d'env, on est en prod donc pas de mock
-if (process.env.MONGO_URL != null) {
-	mocked = false;
-}
-
+let mocked = false;
 (async () => {
 
-	if (!mocked) {
+	var myArgs = process.argv.slice(2);
+
+	if (myArgs.length == 0) {
 		await mongoService.init();
+	} else if (myArgs[0] == "mock") {
+		console.log("Mongo is mocked");
+		mocked = true;
 	}
 
 })();
@@ -67,14 +66,21 @@ app.get('/reports', async function (req, res) {
 });
 
 app.get('/coin/:id', async function (req, res) {
+	if (mocked) {
+		console.log("MOCKED REPORT");
+		let fileContent = await fs.readFile('data/coin.json');
 
-	var id = req.params.id;
+		res.json(JSON.parse(fileContent));
 
-	let reports = await mongoService.findAndSort(MongoService.REPORT, {
-		symbol: id
-	}, { timestamp: 1 }, {});
+	} else {
+		var id = req.params.id;
 
-	console.log(reports.length);
+		let reports = await mongoService.findAndSort(MongoService.REPORT, {
+			symbol: id
+		}, { timestamp: 1 }, {});
 
-	res.json(reports);
+		console.log(reports.length);
+
+		res.json(reports);
+	}
 });

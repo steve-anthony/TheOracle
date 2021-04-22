@@ -284,17 +284,28 @@ async function main() {
 async function test() {
 	let today = new Date();
 	console.log(today.toISOString() + ' - Starting...');
+	//return;
 
+	await mongoService.init();
+
+	console.log(today.toISOString() + ' - Connexion OK');
 	return;
 }
 
 (async () => {
 
-	//await main();
-	//return;
+	var myArgs = process.argv.slice(2);
 
-	console.log('Start cron core.');
-	cron.schedule('0 1 * * *', async () => {
+	if (myArgs.length == 0) {
+		console.log('Start cron core.');
+		cron.schedule('0 1 * * *', async () => {
+			await main();
+		});
+	} else if (myArgs[0] == "dev") {
 		await main();
-	});
+	}
+	else if (myArgs[0] == "mongo") {
+		test();
+	}
+
 })()

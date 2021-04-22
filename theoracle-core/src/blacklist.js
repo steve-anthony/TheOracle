@@ -15,5 +15,5 @@ module.exports = [
     'bull', 'whole', 'vida', 'power', 'usdc', 'tel', 'id', 'fun', 'credit', 'pass', 'rating', 'spike',
     'boost', 'nuts', 'road', 'sale', 'eyes', 'push', 'bear', 'tsla', 'sxpdown', 'bnbdown', 'spice', 'job', 'icon', 'hodl',
     'team', 'yt', 'stake', 'room', 'ath', 'sign', 'bags', 'must', 'wise', 'pure', 'strong', 'dip', 'simple', 'earn',
-    'pro', 'rich', 'key'
+    'pro', 'rich', 'key', 'fast', 'la', 'sur', 'launch', 'vid'
 ]
