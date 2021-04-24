@@ -92,10 +92,16 @@ module.exports = class YoutubeService {
 		await page.keyboard.press("Tab");
 		await page.keyboard.press("Enter");
 
-		await page.waitForSelector('#upsell-dialog-title');
-		await page.keyboard.press("Tab");
-		await page.keyboard.press("Tab");
-		await page.keyboard.press("Enter");
+		// by pass second window
+		console.log("pass the second popup...");
+		try {
+			await page.waitForSelector('#upsell-dialog-title');
+			await page.keyboard.press("Tab");
+			await page.keyboard.press("Tab");
+			await page.keyboard.press("Enter");
+		} catch (e) {
+			console.log("the second popup dont exist so we continue");
+		}
 
 		await page.waitForSelector('h1.title');
 
