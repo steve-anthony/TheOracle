@@ -5,10 +5,24 @@ const usetube = require('usetube');
 
 module.exports = class YoutubeService {
 
+	instance = null;
+
+	static getInstance() {
+		if (this.instance == null) {
+			this.instance = new YoutubeService();
+		}
+		return this.instance;
+	}
+
 	constructor() {
 
 	}
 
+	/**
+	 * Get the first video of a youtube channel
+	 * @param {*} name 
+	 * @returns 
+	 */
 	async searchFirstVideo(name) {
 
 		let bitboy = await usetube.searchVideo(name);
@@ -21,6 +35,11 @@ module.exports = class YoutubeService {
 		return [];
 	}
 
+	/**
+	 * Search all videos that match with crypto. We are searching "best altcoin" and we add to that
+	 * the first video of some famous youtuber
+	 * @returns 
+	 */
 	async getYoutubeVideos() {
 
 		//const fileContent = await fs.readFile('data/channels.json');
@@ -71,6 +90,11 @@ module.exports = class YoutubeService {
 		return cleanVideoArray;
 	}
 
+	/**
+	 * Scrap youtube to retreive comments under a youtube video
+	 * @param {*} youtubeId 
+	 * @returns 
+	 */
 	async getYoutubeComments(youtubeId) {
 
 		//const fileContent = await fs.readFile('data/comments.json');
@@ -153,6 +177,13 @@ module.exports = class YoutubeService {
 		return commentsArrays;
 	}
 
+	/**
+	 * Search the coins in comments
+	 * @param {*} comments 
+	 * @param {*} coins 
+	 * @param {*} mapOccurenceByCoins 
+	 * @returns 
+	 */
 	async seaarchCoinInComments(comments, coins, mapOccurenceByCoins) {
 
 		console.log("search");
@@ -202,7 +233,12 @@ module.exports = class YoutubeService {
 
 	}
 
-	async getMapOccurenceByCoinsInYoutube(coins) {
+	/**
+	 * Get the map of occurence for each coins
+	 * @param {*} coins 
+	 * @returns 
+	 */
+	async computeMapOccurenceByCoins(coins) {
 
 		const youtubeSearch = await this.getYoutubeVideos();
 

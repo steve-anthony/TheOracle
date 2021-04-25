@@ -4,6 +4,15 @@ var PasswordTMP = require('../tmp/password.json');
 
 module.exports = class MongoService {
 
+	instance = null;
+
+	static getInstance() {
+		if (this.instance == null) {
+			this.instance = new MongoService();
+		}
+		return this.instance;
+	}
+
 	url = "localhost:27017";
 	database;
 	user;
@@ -28,6 +37,7 @@ module.exports = class MongoService {
 		try {
 			const client = await MongoClient.connect(this.url + "/oraclecrypto");
 			this.database = client.db('oraclecrypto');
+			console.log("Connexion succed.")
 		} catch (err) {
 			throw new Error('Connexion BDD Fail : ', err);
 		}
