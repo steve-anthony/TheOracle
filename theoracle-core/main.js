@@ -72,7 +72,7 @@ async function mongoTest() {
 
 /**
  * Entry point with args
- * node main.js dev => app with cron (for prod)
+ * node main.js => app with cron (for prod)
  * node main.js dev => app without cron
  * node main.js mongo => test if db connexion work
  */

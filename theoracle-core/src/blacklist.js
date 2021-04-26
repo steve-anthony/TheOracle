@@ -3,7 +3,7 @@ module.exports = [
     'can', 'like', 'at', 'up', 'me', 'all', 'get',
     'but', 'more', 'when', 'buy', 'one', 'any', 'keep',
     'new', 'now', 'best', 'coin', 'go',
-    'time', 'got', 'its', 'trade', 'chain', 'next',
+    'time', 'got', 'its', 'trade', 'next',
     'top', 'lol', 'many', 'reef', 'man',
     'moon', 'cap', 'help', 'long', 'cover', 'well', 'lot',
     'watch', 'alt', 'use', 'gem', 'start', 'bro', 'hard',
@@ -15,5 +15,7 @@ module.exports = [
     'bull', 'whole', 'vida', 'power', 'usdc', 'tel', 'id', 'fun', 'credit', 'pass', 'rating', 'spike',
     'boost', 'nuts', 'road', 'sale', 'eyes', 'push', 'bear', 'tsla', 'sxpdown', 'bnbdown', 'spice', 'job', 'icon', 'hodl',
     'team', 'yt', 'stake', 'room', 'ath', 'sign', 'bags', 'must', 'wise', 'pure', 'strong', 'dip', 'simple', 'earn',
-    'pro', 'rich', 'key', 'fast', 'la', 'sur', 'launch', 'vid'
+    'pro', 'rich', 'key', 'fast', 'la', 'sur', 'launch', 'vid', 'merci', 'ce', 'si', 'bon', 'par', 'trop', 'our', 'part', 'fin', 'token',
+    'fire', 'save', 'd', 'try', 'dit', 'prix', 'es', 'yo', 'ont', 'via', 'stp', 'art', 'epic', 'she', 'hype', 'force', 'ones',
+    'baby', 'ce', 'merci'
 ]
