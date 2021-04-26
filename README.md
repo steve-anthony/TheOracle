@@ -13,54 +13,76 @@ theoracle-core -> mongodb -> rapport
 
 mongodb -> rapport -> theoracle-back -> theoracle-front
 
+# Prérequis
+
+Il vous faut :
+
+- node
+- npm
+- docker
+- docker-compose
+
+
+REMARQUE : Je n'ai pas window. Je pense qu'il vous faut une power shell ou un git bash pour lancer les commandes suivantes.
+
 # La base de données
 
 ## 1) Lancer mongo
-Il y a deux options, soit utiliser docker, soit installer mongo directement.
+Pour lancer mongo c'est simple. 
+  - Soit vous installer mongo manuellement
+  - Soit vous le lancer avec docker
 
-Avec docker et docker compose :
-- Il faut modifier le fichier docker-compose dans "theoracle/conf/mongo" et enlever le --auth de la commande ligne 21. (on veut lancer mongo sans authentification)
-- Pour lancer mongo deux options :
-  - dans le repertoire "theoracle/conf/mongo"  taper la commande "docker-compose up"
+Si vous voulez le lancer avec docker:
+
+Vous allez dans le sous projet : "theoracle" et vous faite cette commande : 
+
 ```
-docker-compose up // bloquant mais cool pour voir les logs
-docker-compose up -d // pour lancer sans bloquer la cmd
-```
- - ou alors dans repertoire "theoracle" taper la commande  
-```
-./theoracle.sh mongo start
+./theoracle-dev.sh mongo start
 ```
 
-Sans docker : démerdez vous à installer le truc sur votre poste
+pour éteindre mongo
 
-
-## 2) Créé un DB et un user
-
-- Il vous faut un soft pour mongo (NoSQLBooster for mongodb, mongo) https://www.nosqlbooster.com/downloads
-- Créé une db du nom de "oraclecrypto"
-- ouvrir un shell dans "oraclecrypto" et faire la commande suivante pour créer un user
 ```
-db.createUser({user:"theOracleAdmin", pwd:"monSuperPassword",roles:["readWrite","dbAdmin"]})
-```
-- kill mongo (docker-compose down ou ./theoracle.sh mongo stop)
-
-
-## 3) Reboot mongo en mode auth
-- Il faut modifier le fichier docker-compose dans "theoracle/conf/mongo" et ajouter le --auth ligne 21. (on veut lancer mongo avec authentification)
-- lancer mongo (docker-compose up ou ./theoracle.sh mongo start)
-
-##  4) Créer un fichier de config dans le projet
-- dans le repertoire "theoracle-core" créer un dossier "tmp"
-- dans "tmp" créer un fichier "password.json" avec à l'intérieur 
-```
-[
-    "theOracleAdmin",
-    "monSuperPassword"
-]
+./theoracle-dev.sh mongo stop
 ```
 
 
-# The Oracle Core
+## 2) Explorer votre base
+
+Il vous faut un soft pour mongo (NoSQLBooster for mongodb par exemple) https://www.nosqlbooster.com/downloads
+
+
+
+# Initialiser le projet
+
+Avant toute chose il vous faut initaliser la bdd et le projet.
+
+Vous allez dans le sous projet : "theoracle" et vous faite cette commande : 
+
+```
+./theoracle-dev.sh init
+```
+
+Si tous ce passe bien vous retrouverez une sortie de commande comme ça :
+
+```
+  timestamp: 2021-04-26T08:35:53.054Z
+}
+UPDATE COIN  {
+  symbol: 'usd',
+  name: 'United States Dollar',
+  price: 0,
+  timestamp: 2021-04-26T08:35:53.054Z
+}
+[OK] coins updated
+2021-04-26T08:35:49.089Z - Connexion OK
+Initialisation terminée
+```
+
+
+# Prêt à coder
+
+## The Oracle Core
 
 Il faut lancer le serveur mongo.
 
@@ -87,7 +109,7 @@ node main.js
 ```
 
 
-# The Oracle Back
+## The Oracle Back
 
 Il vous faut vous placer dans "theoracle-back".
 
@@ -115,7 +137,7 @@ node theoracle-back.js
 
 
 
-# The Oracle Front
+## The Oracle Front
 
 
 Il vous faut vous placer dans "theoracle-front".
