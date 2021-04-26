@@ -1,6 +1,6 @@
 
 var MongoClient = require('mongodb').MongoClient;
-var PasswordTMP = require('../tmp/password.json');
+const fs = require('fs')
 
 module.exports = class MongoService {
 
@@ -25,15 +25,36 @@ module.exports = class MongoService {
 
 	}
 
+	/**
+	 * To connect DB
+	 */
 	async init() {
-		this.user = PasswordTMP[0];
-		this.password = PasswordTMP[1];
+		// fetch user & password if possible
+		try {
+			var PasswordTMP = require('../tmp/password.json');
+			this.user = PasswordTMP[0];
+			this.password = PasswordTMP[1];
+		} catch (e) {
+			console.log("No auth file");
+		}
 
+		// if we are in docker we get the adress of mongo
+		// else we use localhost
 		if (process.env.MONGO_URL != null) {
 			this.url = process.env.MONGO_URL;
 		}
-		this.url = "mongodb://" + this.user + ":" + this.password + "@" + this.url;
 
+		// if we have ID/PASSWORD we use it
+		// else we connect without auth
+		if (this.user != null && this.password != null) {
+			this.url = "mongodb://" + this.user + ":" + this.password + "@" + this.url;
+			console.log("MONGO : with auth");
+		} else {
+			this.url = "mongodb://" + this.url;
+			console.log("MONGO : no auth");
+		}
+
+		// try to connect db
 		try {
 			const client = await MongoClient.connect(this.url + "/oraclecrypto");
 			this.database = client.db('oraclecrypto');

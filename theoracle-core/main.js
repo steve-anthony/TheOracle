@@ -66,7 +66,11 @@ async function mongoTest() {
 
 	await mongoService.init();
 
+	await coreService.getCoins();
+
 	console.log(today.toISOString() + ' - Connexion OK');
+
+	await mongoService.close();
 	return;
 }
 

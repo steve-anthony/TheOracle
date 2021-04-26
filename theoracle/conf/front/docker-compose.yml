@@ -20,6 +20,13 @@ services:
     networks:
       - custom_network
 
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+
 networks:
   custom_network:
     external:
