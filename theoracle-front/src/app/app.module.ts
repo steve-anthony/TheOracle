@@ -10,12 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSortModule } from '@angular/material/sort';
 import { CoinComponent } from './coin/coin.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { ArrayNumberComponent } from './shared/array-number/array-number.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CoinComponent
+    CoinComponent,
+    ArrayNumberComponent
   ],
   imports: [
     BrowserModule,

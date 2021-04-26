@@ -28,56 +28,54 @@
     </ng-container>
     <ng-container matColumnDef="youtubePercentDailyIndex">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> YT%D </th>
-        <td mat-cell *matCellDef="let element"> {{element.youtubePercentDailyIndex | number : '1.2-2'}} </td>
+        <td mat-cell *matCellDef="let element">
+
+            <app-array-number [value]="element.youtubePercentDailyIndex"></app-array-number>
+
+        </td>
     </ng-container>
     <ng-container matColumnDef="youtubePercentWeeklyIndex">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> YT%W </th>
-        <td mat-cell *matCellDef="let element"> {{element.youtubePercentWeeklyIndex | number : '1.2-2'}} </td>
+        <td mat-cell *matCellDef="let element">
+
+            <app-array-number [value]="element.youtubePercentWeeklyIndex"></app-array-number>
+
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="youtubePercentMonthlyIndex">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> YT%M </th>
-        <td mat-cell *matCellDef="let element"> {{element.youtubePercentMonthlyIndex | number : '1.2-2'}} </td>
+        <td mat-cell *matCellDef="let element">
+
+            <app-array-number [value]="element.youtubePercentMonthlyIndex"></app-array-number>
+        </td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-        <td mat-cell *matCellDef="let element"> {{element.price | number : '1.2-4' }} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price ($) </th>
+        <td mat-cell *matCellDef="let element"> {{element.price }} </td>
     </ng-container>
 
 
     <ng-container matColumnDef="pricePercentDailyIndex">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> $%D </th>
-        <td mat-cell *matCellDef="let element"> {{element.pricePercentDailyIndex | number : '1.2-2'}} </td>
+        <td mat-cell *matCellDef="let element">
+            <app-array-number [value]="element.pricePercentDailyIndex"></app-array-number>
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="pricePercentWeeklyIndex">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> $%W </th>
-        <td mat-cell *matCellDef="let element"> {{element.pricePercentWeeklyIndex | number : '1.2-2'}} </td>
+        <td mat-cell *matCellDef="let element">
+            <app-array-number [value]="element.pricePercentWeeklyIndex"></app-array-number>
+        </td>
     </ng-container>
     <ng-container matColumnDef="pricePercentMonthlyIndex">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> $%M </th>
         <td mat-cell *matCellDef="let element">
-            <span *ngIf="element.pricePercentMonthlyIndex <= -1 " style="color: red;font-size:20px;">
-                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
-            </span>
-            <span *ngIf="element.pricePercentMonthlyIndex < 0 && element.pricePercentMonthlyIndex > -1"
-                style="color: red;">
-                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
-            </span>
+            <app-array-number [value]="element.pricePercentMonthlyIndex"></app-array-number>
 
-            <span *ngIf="element.pricePercentMonthlyIndex <= 0.5 && element.pricePercentMonthlyIndex >= 0">
-                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
-            </span>
-
-            <span *ngIf="element.pricePercentMonthlyIndex > 0.5 && element.pricePercentMonthlyIndex < 1"
-                style="color: green;">
-                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
-            </span>
-            <span *ngIf="element.pricePercentMonthlyIndex >= 1" style="color: green;font-size:20px;">
-                {{element.pricePercentMonthlyIndex | number : '1.2-2'}}
-            </span>
         </td>
     </ng-container>
 
