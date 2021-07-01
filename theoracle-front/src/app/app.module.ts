@@ -11,12 +11,14 @@ import { MatSortModule } from '@angular/material/sort';
 import { CoinComponent } from './coin/coin.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ArrayNumberComponent } from './shared/array-number/array-number.component';
+import { SafemoonComponent } from './safemoon/safemoon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CoinComponent,
+    SafemoonComponent,
     ArrayNumberComponent
   ],
   imports: [

@@ -17,5 +17,5 @@ module.exports = [
     'team', 'yt', 'stake', 'room', 'ath', 'sign', 'bags', 'must', 'wise', 'pure', 'strong', 'dip', 'simple', 'earn',
     'pro', 'rich', 'key', 'fast', 'la', 'sur', 'launch', 'vid', 'merci', 'ce', 'si', 'bon', 'par', 'trop', 'our', 'part', 'fin', 'token',
     'fire', 'save', 'd', 'try', 'dit', 'prix', 'es', 'yo', 'ont', 'via', 'stp', 'art', 'epic', 'she', 'hype', 'force', 'ones',
-    'baby', 'ce', 'merci'
+    'baby', 'ce', 'merci', '100x', 'dope', 'hope'
 ]

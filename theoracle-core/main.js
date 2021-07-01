@@ -4,11 +4,13 @@ const MongoService = require('./src/mongo.service');
 var cron = require('node-cron');
 const CoreService = require('./src/core.service');
 const TwitterService = require('./src/twitter.service');
+const SafemoonService = require('./src/safemoon.service');
 
 let youtubeService = YoutubeService.getInstance();
 let mongoService = MongoService.getInstance();
 let coreService = CoreService.getInstance();
 let twitterService = TwitterService.getInstance();
+let safemoonService = SafemoonService.getInstance();
 
 console.log();
 console.log("---------------------------------------------");
@@ -21,6 +23,8 @@ console.log();
  * @returns 
  */
 async function main() {
+
+	await safemoon();
 
 	let today = new Date();
 	console.log(today.toISOString() + ' - Starting...');
@@ -74,6 +78,48 @@ async function mongoTest() {
 	return;
 }
 
+async function tests() {
+
+	let today = new Date();
+	console.log(today.toISOString() + ' - Starting...');
+	//return;
+
+	// connect to the base
+	await mongoService.init();
+
+	// fetch the coin list and update this in database
+	//const coins = await coreService.getCoins();
+	const coins = [];
+
+	// count how many time each crypto is quote in comments 
+	const mapOccurenceByCoinsForTwitter = await twitterService.computeMapOccurenceByCoins(coins);
+
+	console.log(mapOccurenceByCoinsForTwitter);
+
+	console.log(today.toISOString() + ' - Connexion OK');
+
+	await mongoService.close();
+	return;
+}
+
+async function safemoon() {
+
+	let today = new Date();
+	console.log(today.toISOString() + ' - Safemoon');
+
+	// connect to the base
+	await mongoService.init();
+
+	let balanceSafemoon = await safemoonService.getSafemoonBiggestWhaleBalance();
+
+	let reportSafemoon = await safemoonService.createReport(balanceSafemoon);
+
+	await mongoService.insert(MongoService.SAFEMOON, reportSafemoon);
+
+	await mongoService.close();
+	return;
+}
+
 /**
  * Entry point with args
  * node main.js => app with cron (for prod)
@@ -91,6 +137,10 @@ async function mongoTest() {
 		});
 	} else if (myArgs[0] == "dev") {
 		await main();
+	} else if (myArgs[0] == "tests") {
+		await tests();
+	} else if (myArgs[0] == "safemoon") {
+		await safemoon();
 	}
 	else if (myArgs[0] == "mongo") {
 		mongoTest();

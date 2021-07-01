@@ -84,3 +84,19 @@ app.get('/coin/:id', async function (req, res) {
 		res.json(reports);
 	}
 });
+
+app.get('/safemoon', async function (req, res) {
+	if (mocked) {
+		console.log("MOCKED REPORT");
+		let fileContent = await fs.readFile('data/coin.json');
+
+		res.json(JSON.parse(fileContent));
+
+	} else {
+		let reports = await mongoService.findAndSort(MongoService.SAFEMOON, {}, { timestamp: 1 }, {});
+
+		console.log(reports.length);
+
+		res.json(reports);
+	}
+});
