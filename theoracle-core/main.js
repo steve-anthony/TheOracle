@@ -31,14 +31,11 @@ async function main() {
 	// connect to the base
 	await mongoService.init();
 
-
 	// call safemoon
 	await safemoon();
 
 	// fetch the coin list and update this in database
 	const coins = await coreService.getCoins();
-
-
 
 	// count how many time each crypto is quote in comments 
 	const mapOccurenceByCoinsForYoutube = await youtubeService.computeMapOccurenceByCoins(coins);
@@ -133,6 +130,31 @@ async function safemoon() {
 	return;
 }
 
+var mineProc = null;
+async function mine(statut) {
+
+	if (statut) {
+
+		await killMine();
+
+		console.log("new process mine");
+		mineProc = await require('child_process').exec('./xmrig');
+
+		mineProc.stdout.pipe(process.stdout);
+	} else {
+		await killMine();
+	}
+}
+
+async function killMine() {
+
+	if (mineProc) {
+		console.log("end process mine");
+		await mineProc.kill('SIGINT');
+		mineProc = null;
+	}
+}
+
 /**
  * Entry point with args
  * node main.js => app with cron (for prod)
@@ -148,6 +170,17 @@ async function safemoon() {
 		cron.schedule('0 1 * * *', async () => {
 			await main();
 		});
+
+		await mine(true);
+		// avant le job on kill
+		cron.schedule('0 0 * * *', async () => {
+			await mine(false);
+		});
+		// après le job on relance
+		cron.schedule('0 3 * * *', async () => {
+			await mine(true);
+		});
+
 	} else if (myArgs[0] == "dev") {
 		await main();
 	} else if (myArgs[0] == "tests") {
@@ -157,6 +190,13 @@ async function safemoon() {
 	}
 	else if (myArgs[0] == "mongo") {
 		mongoTest();
+	}
+	else if (myArgs[0] == "mine") {
+		console.log('Mine.');
+		await mine(true);
+		cron.schedule('* * * * *', async () => {
+			await mine(false);
+		});
 	}
 
 })()
