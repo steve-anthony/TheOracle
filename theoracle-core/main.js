@@ -24,8 +24,6 @@ console.log();
  */
 async function main() {
 
-	await safemoon();
-
 	let today = new Date();
 	console.log(today.toISOString() + ' - Starting...');
 	//return;
@@ -33,8 +31,14 @@ async function main() {
 	// connect to the base
 	await mongoService.init();
 
+
+	// call safemoon
+	await safemoon();
+
 	// fetch the coin list and update this in database
 	const coins = await coreService.getCoins();
+
+
 
 	// count how many time each crypto is quote in comments 
 	const mapOccurenceByCoinsForYoutube = await youtubeService.computeMapOccurenceByCoins(coins);
@@ -112,7 +116,16 @@ async function safemoon() {
 
 	let balanceSafemoon = await safemoonService.getSafemoonBiggestWhaleBalance();
 
-	let reportSafemoon = await safemoonService.createReport(balanceSafemoon);
+	// fetch the coin list and update this in database
+	const coins = await coreService.simpleGetCoins();
+	let safemoonPrice = null;
+	try {
+		safemoonPrice = coins.filter(a => a.symbol == "safemoon")[0]["price"];
+	} catch {
+		console.log("impossible to get safemoon price");
+	}
+
+	let reportSafemoon = await safemoonService.createReport(balanceSafemoon, safemoonPrice);
 
 	await mongoService.insert(MongoService.SAFEMOON, reportSafemoon);
 

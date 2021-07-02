@@ -20,43 +20,42 @@ module.exports = class SafemoonService {
 
 	}
 
+	async createReport(balanceSafemoon, price) {
 
-	async createReport(balanceSafemoon) {
+		console.log("price", price);
 
-		console.log("createReport",balanceSafemoon);
+		console.log("createReport", balanceSafemoon);
 
-
-
-		const safemoonReports = await mongoService.findAndSort(MongoService.SAFEMOON, {}, {timestamp:-1});
+		const safemoonReports = await mongoService.findAndSort(MongoService.SAFEMOON, {}, { timestamp: -1 });
 
 		let preivousBalance = balanceSafemoon;
-		if(safemoonReports.length > 0){
+		if (safemoonReports.length > 0) {
 			let lastSFR = safemoonReports[0];
-			preivousBalance= safemoonReports[0].balance;
+			preivousBalance = safemoonReports[0].balance;
 			console.log(lastSFR);
 		}
 
 		let burn = balanceSafemoon - preivousBalance;
 		let burnP = burn / balanceSafemoon;
 
+		let computedCurrentBalance = preivousBalance + (preivousBalance * burnP);
 
-		let computedCurrentBalance = preivousBalance + (preivousBalance*burnP);
+		console.log(balanceSafemoon + " - " + preivousBalance + " = " + burn);
+		console.log(burn + " / " + preivousBalance + " = " + burnP);
 
-		console.log(balanceSafemoon+ " - " +preivousBalance+ " = " +burn);
-		console.log(burn+ " / " +preivousBalance+ " = " +burnP);
+		console.log("T1 = " + preivousBalance + " + " + burn + " = " + balanceSafemoon);
+		console.log("T2 = " + preivousBalance + " + " + burn + " = " + (preivousBalance + burn));
 
-		console.log( "T1 = " +preivousBalance + " + " +burn+ " = " +balanceSafemoon);
-		console.log( "T2 = " +preivousBalance + " + " +burn+ " = " +(preivousBalance+burn));
-
-		console.log( "actual = " +balanceSafemoon);
-		console.log( "computed = " +computedCurrentBalance);
-		console.log( "diff = " +(balanceSafemoon- computedCurrentBalance));
+		console.log("actual = " + balanceSafemoon);
+		console.log("computed = " + computedCurrentBalance);
+		console.log("diff = " + (balanceSafemoon - computedCurrentBalance));
 
 		const safemoonReport = {
 			timestamp: new Date(),
-			balance : balanceSafemoon,
-			burn : burn,
-			burnP : burnP
+			balance: balanceSafemoon,
+			burn: burn,
+			burnP: burnP,
+			price: price
 		};
 
 		console.log(safemoonReport);
@@ -64,7 +63,6 @@ module.exports = class SafemoonService {
 		return safemoonReport;
 
 	}
-
 
 	/**
 	 * Scrap youtube to retreive comments under a youtube video
@@ -84,33 +82,33 @@ module.exports = class SafemoonService {
 		const navigationPromise = page.waitForNavigation();
 
 		// bypass cookies
-		console.log("bypass cookies...");
+		console.log("load safemoon page...");
 		await page.goto('https://bscscan.com/token/0x8076c74c5e3f5852037f31ff0093eeb8c8add8d3?a=0x0000000000000000000000000000000000000001');
-		//	await page.keyboard.press("Tab");
-	
 
 		await page.waitForSelector('#ContentPlaceHolder1_divFilteredHolderBalance');
 
+		await page.waitFor(2000);
 		console.log("page load");
 
 		// get comments
 		console.log("get balance...");
 		const balanceArr = await page.$$("#ContentPlaceHolder1_divFilteredHolderBalance",
 			elements => elements.map(item => item.innerText));
-
+		console.log("innerText...");
 		let balance = await (await balanceArr[0].getProperty('innerText')).jsonValue();
+
+		console.log("trim...");
 		balance = balance.replace("BALANCE", "");
 		balance = balance.replace("SAFEMOON", "");
 		balance = balance.replaceAll(",", "");
 		balance = balance.trim();
 
 		let balanceNumber = Number(balance);
-		console.log(balanceNumber);
+		console.log("balance", balanceNumber);
 
 		await browser.close();
 
 		return balanceNumber;
 	}
-
 
 }

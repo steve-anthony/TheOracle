@@ -34,7 +34,7 @@ export class SafemoonComponent implements OnInit {
       for (const element of r) {
         xAxisData.push(this.dateToYMD(new Date(element.timestamp)));
         data1.push(element.burnP);
-        data2.push(element.burn);
+        data2.push(element.price);
       }
 
       this.optionsIndice = {

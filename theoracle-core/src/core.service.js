@@ -33,6 +33,37 @@ module.exports = class CoreService {
 
 	}
 
+	async simpleGetCoins() {
+		let cleanCoins = [];
+		let coins = JSON.parse(await fetch('https://api.coinmarketcap.com/data-api/v3/cryptocurrency/listing?start=1&limit=6000&sortBy=market_cap&sortType=desc&convert=USD&cryptoType=all&tagType=all').then(res => res.text()));
+		coins = coins.data.cryptoCurrencyList;
+		for (let i = 0; i < coins.length; i++) {
+			let c = coins[i];
+
+			let price = 0;
+			if (c.quotes != null && c.quotes.length != -1 && c.quotes[0].price && c.quotes[0].name == "USD") {
+				price = c.quotes[0].price;
+			}
+
+			let current = {
+				symbol: c.symbol.toLowerCase(),
+				name: c.name,
+				price: price,
+				timestamp: new Date()
+			};
+
+			let existingCoin = cleanCoins.find(element => element.symbol == current.symbol);
+
+			if (existingCoin == null) {
+
+				cleanCoins.push(current);
+
+			}
+		}
+
+		return cleanCoins;
+	}
+
 	/**
 	 * It will fetch data for api of conmarketcap, coinbase, coingecko
 	 * and update the database
