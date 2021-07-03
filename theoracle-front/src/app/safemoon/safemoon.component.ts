@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { EChartsOption } from 'echarts';
 
 @Component({
   selector: 'app-safemoon',
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./safemoon.component.css']
 })
 export class SafemoonComponent implements OnInit {
-  optionsIndice: any;
+  optionsIndice: EChartsOption;
   optionsPrice: any;
   coinId: string;
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
@@ -50,7 +51,9 @@ export class SafemoonComponent implements OnInit {
             show: false,
           },
         },
-        yAxis: {},
+        yAxis: {
+          type: 'log'
+        },
         series: [
           {
             name: 'yt',
@@ -76,7 +79,9 @@ export class SafemoonComponent implements OnInit {
             show: false,
           },
         },
-        yAxis: {},
+        yAxis: {
+          type: 'log'
+        },
         series: [
 
           {
