@@ -88,7 +88,7 @@ app.get('/coin/:id', async function (req, res) {
 app.get('/safemoon', async function (req, res) {
 	if (mocked) {
 		console.log("MOCKED REPORT");
-		let fileContent = await fs.readFile('data/coin.json');
+		let fileContent = await fs.readFile('data/safemoon.json');
 
 		res.json(JSON.parse(fileContent));
 

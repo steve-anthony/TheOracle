@@ -1,4 +1,36 @@
-<p>Burn Percent</p>
-<div echarts [options]="optionsIndice" class="demo-chart"></div>
-<p>Price</p>
-<div echarts [options]="optionsPrice" class="demo-chart"></div>
+<div>
+    <h1>Reflexions computed with the Burn Wallet</h1>
+
+
+    <button (click)="onLog()">
+        <span *ngIf="isLog">
+            LOG
+        </span>
+        <span *ngIf="!isLog">
+            NORMAL
+        </span>
+    </button>
+    <p>Reflexions Percent</p>
+    <div echarts [options]="optionsIndice" class="demo-chart"></div>
+    <p>Safemoon Price</p>
+    <div echarts [options]="optionsPrice" class="demo-chart"></div>
+
+    <div style="padding-top: 50px;">
+
+        <table style="width: 100%;">
+            <tr style="text-align: left;">
+                <th>DATE</th>
+                <th>PRICE</th>
+                <th>BALANCE (BURNWALLET)</th>
+                <th>BURNED (BURNWALLET)</th>
+                <th>REFLEXION PERCENT</th>
+            </tr>
+            <tr style="text-align: left;" *ngFor="let d of data">
+                <td>{{d.timestamp}}</td>
+                <td>{{d.price}}</td>
+                <td>{{d.balance}}</td>
+                <td>{{d.burn}}</td>
+                <td>{{d.burnP}}</td>
+            </tr>
+        </table>
+    </div>

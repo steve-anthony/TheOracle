@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CoinComponent } from './coin/coin.component';
 import { SafemoonComponent } from './safemoon/safemoon.component';
+import { SafemoonComputeComponent } from './safemoon-compute/safemoon-compute.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'reports', component: HomeComponent },
   { path: 'coin/:id', component: CoinComponent },
   { path: 'safemoon', component: SafemoonComponent },
+  { path: '', component: SafemoonComputeComponent }
 
 ];
 

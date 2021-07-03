@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,13 @@ import { CoinComponent } from './coin/coin.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ArrayNumberComponent } from './shared/array-number/array-number.component';
 import { SafemoonComponent } from './safemoon/safemoon.component';
+import { SafemoonComputeComponent } from './safemoon-compute/safemoon-compute.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -19,8 +26,10 @@ import { SafemoonComponent } from './safemoon/safemoon.component';
     HomeComponent,
     CoinComponent,
     SafemoonComponent,
-    ArrayNumberComponent
+    ArrayNumberComponent,
+    SafemoonComputeComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,6 +37,13 @@ import { SafemoonComponent } from './safemoon/safemoon.component';
     MatTableModule,
     HttpClientModule,
     MatSortModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })

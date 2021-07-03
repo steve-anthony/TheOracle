@@ -1,0 +1,52 @@
+<div>
+
+    <h1>How many token you won each days</h1>
+    <strong>This is not forecasting, it's your daily history for IRS</strong>
+
+    <form [formGroup]="form" (submit)="generate()">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Your balance</mat-label>
+            <input formControlName="balanceForm" matInput type="number" placeholder="Your balance" value="1000000000">
+        </mat-form-field>
+        <span style="padding:10px;"> </span>
+        <mat-form-field appearance="fill">
+            <mat-label>At this date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dateForm">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <span style="padding:10px;"> </span>
+        <mat-form-field appearance="fill">
+            <mat-label>To this date</mat-label>
+            <input matInput [matDatepicker]="pickerTo" formControlName="dateToForm">
+            <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+            <mat-datepicker #pickerTo></mat-datepicker>
+        </mat-form-field>
+        <span style="padding:10px;"> </span>
+        <button type="submit" mat-raised-button color="primary">Compute</button>
+
+    </form>
+
+
+    <div style="padding-top: 50px;">
+
+        <table style="width: 100%;">
+            <tr style="text-align: left;">
+                <th>DATE</th>
+                <th>PRICE</th>
+
+                <th>RELEXIONS PERCENT</th>
+                <th>RELEXIONS</th>
+                <th>BALANCE</th>
+                <th>VALUE</th>
+            </tr>
+            <tr style="text-align: left;" *ngFor="let d of myProjection">
+                <td>{{d.timestamp}}</td>
+                <td>{{d.price}} $</td>
+                <td>{{d.burnP}}</td>
+                <td>{{d.reflexion}}</td>
+                <td>{{d.balance}}</td>
+                <td>{{d.value | number : '1.2-2'}} $</td>
+            </tr>
+        </table>
+    </div>
