@@ -167,17 +167,14 @@ async function killMine() {
 
 	if (myArgs.length == 0) {
 		console.log('Start cron core.');
-		cron.schedule('0 1 * * *', async () => {
+		cron.schedule('0 0 * * *', async () => {
+			await mine(false);
 			await main();
 		});
 
 		await mine(true);
-		// avant le job on kill
-		cron.schedule('0 0 * * *', async () => {
-			await mine(false);
-		});
 		// après le job on relance
-		cron.schedule('0 3 * * *', async () => {
+		cron.schedule('0 2 * * *', async () => {
 			await mine(true);
 		});
 
