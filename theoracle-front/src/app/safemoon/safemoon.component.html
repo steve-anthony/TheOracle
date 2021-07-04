@@ -22,12 +22,12 @@
                 <th>DATE</th>
                 <th>PRICE</th>
                 <th>BALANCE (BURNWALLET)</th>
-                <th>BURNED (BURNWALLET)</th>
+                <th>REFLEXION (BURNWALLET)</th>
                 <th>REFLEXION PERCENT</th>
             </tr>
             <tr style="text-align: left;" *ngFor="let d of data">
                 <td>{{d.timestamp}}</td>
-                <td>{{d.price}}</td>
+                <td>{{d.price}} $</td>
                 <td>{{d.balance}}</td>
                 <td>{{d.burn}}</td>
                 <td>{{d.burnP}}</td>

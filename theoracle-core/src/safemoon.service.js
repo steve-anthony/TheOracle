@@ -36,7 +36,7 @@ module.exports = class SafemoonService {
 		}
 
 		let burn = balanceSafemoon - preivousBalance;
-		let burnP = burn / balanceSafemoon;
+		let burnP = burn / preivousBalance;
 
 		let computedCurrentBalance = preivousBalance + (preivousBalance * burnP);
 
