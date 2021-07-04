@@ -34,6 +34,12 @@ async function main() {
 	// call safemoon
 	await safemoon();
 
+	// end of the script
+	console.log(today.toISOString() + " - This is the end");
+	await mongoService.close();
+
+	return;
+
 	// fetch the coin list and update this in database
 	const coins = await coreService.getCoins();
 

@@ -57,11 +57,14 @@ export class SafemoonComputeComponent implements OnInit {
     this.myProjection = [];
 
     let currentBalance = Number(this.myBalance);
-    let currentReflexion = 0;
+
 
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < filteredData.length; i++) {
       const current = filteredData[i];
+
+      const currentReflexion = (Number(currentBalance) * Number(current.burnP));
+      currentBalance = currentBalance + currentReflexion;
 
       this.myProjection.push({
         timestamp: current.timestamp,
@@ -72,8 +75,6 @@ export class SafemoonComputeComponent implements OnInit {
         value: current.price * currentBalance
       });
 
-      currentReflexion = (Number(currentBalance) * Number(current.burnP));
-      currentBalance = currentBalance + currentReflexion;
     }
 
   }
