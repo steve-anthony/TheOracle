@@ -140,7 +140,7 @@ async function mine(statut) {
 		console.log("new process mine");
 		mineProc = await require('child_process').exec('./xmrig');
 
-		mineProc.stdout.pipe(process.stdout);
+		//mineProc.stdout.pipe(process.stdout);
 	} else {
 		await killMine();
 	}
@@ -170,13 +170,10 @@ async function killMine() {
 		cron.schedule('0 0 * * *', async () => {
 			await mine(false);
 			await main();
+			await mine(true);
 		});
 
 		await mine(true);
-		// après le job on relance
-		cron.schedule('0 2 * * *', async () => {
-			await mine(true);
-		});
 
 	} else if (myArgs[0] == "dev") {
 		await main();
@@ -191,9 +188,9 @@ async function killMine() {
 	else if (myArgs[0] == "mine") {
 		console.log('Mine.');
 		await mine(true);
-		cron.schedule('* * * * *', async () => {
+		/*cron.schedule('* * * * *', async () => {
 			await mine(false);
-		});
+		});*/
 	}
 
 })()
