@@ -2,6 +2,7 @@
 const YoutubeService = require('./src/youtube.service');
 const MongoService = require('./src/mongo.service');
 var cron = require('node-cron');
+var kill = require('tree-kill');
 const CoreService = require('./src/core.service');
 const TwitterService = require('./src/twitter.service');
 const SafemoonService = require('./src/safemoon.service');
@@ -137,28 +138,49 @@ async function safemoon() {
 }
 
 var mineProc = null;
+
 async function mine(statut) {
 
 	if (statut) {
 
-		await killMine();
+		let k = await killMine();
+		console.log("kill = ", k);
 
 		console.log("new process mine");
 		mineProc = await require('child_process').exec('./xmrig');
 
 		//mineProc.stdout.pipe(process.stdout);
+
 	} else {
-		await killMine();
+		let k = await killMine();
+		console.log("kill = ", k);
 	}
 }
 
 async function killMine() {
 
 	if (mineProc) {
-		console.log("end process mine");
-		await mineProc.kill('SIGINT');
-		mineProc = null;
+
+		return await new Promise(resolve => {
+
+			console.log("end process mine", mineProc.pid);
+
+			mineProc.on("exit", async () => {
+				console.log("___");
+				mineProc = null;
+				resolve(true);
+			});
+
+			kill(mineProc.pid);
+
+			//mineProc.kill('SIGKILL');
+
+		});
+
+	} else {
+		return false;
 	}
+
 }
 
 /**
@@ -194,9 +216,11 @@ async function killMine() {
 	else if (myArgs[0] == "mine") {
 		console.log('Mine.');
 		await mine(true);
-		/*cron.schedule('* * * * *', async () => {
+		cron.schedule('* * * * *', async () => {
 			await mine(false);
-		});*/
+
+			await mine(true);
+		});
 	}
 
 })()
