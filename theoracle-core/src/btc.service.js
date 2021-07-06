@@ -77,12 +77,12 @@ module.exports = class BTCService {
 		const page = await browser.newPage();
 		await page.setViewport({ width: 1280, height: 800 });
 		await page.cookies();
-		let c = page.waitForNavigation();
+		const navigationPromise = page.waitForNavigation({ waitUntil: "domcontentloaded" });
 
 		// bypass cookies
 		console.log("load BTC page...");
 		await page.goto('https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html');
-
+		await navigationPromise;
 		for (let i = 0; i < 5; i++) {
 			try {
 				console.log("waitForSelector");
