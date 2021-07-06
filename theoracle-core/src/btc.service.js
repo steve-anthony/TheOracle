@@ -105,7 +105,9 @@ module.exports = class BTCService {
 
 		console.log("balanceArr");
 
-		await page.evaluate(_ => { });
+		await page.evaluate(_ => {
+
+		});
 
 		console.log("evaluate");
 
@@ -113,8 +115,15 @@ module.exports = class BTCService {
 		for (let j = 0; j < 10; j++) {
 			let line = {};
 			for (let i = 0; i < 6; i++) {
-				console.log((j * 6) + i);
-				let balance = await (await balanceArr[(j * 6) + i].getProperty('innerText')).jsonValue();
+
+				//let balance = await (await balanceArr[(j * 6) + i].getProperty('innerText')).jsonValue();
+				let index = (j * 6) + i;
+				let balance = await page.evaluate((index) => {
+
+					let element = document.querySelectorAll('.table.table-condensed.bb tr td')[index].innerText;
+					return element;
+
+				}, index);
 				balance = balance.trim();
 				line[collumName[i]] = balance;
 
@@ -128,6 +137,7 @@ module.exports = class BTCService {
 				}
 			}
 			resultArr.push(line);
+
 		}
 
 		console.log(resultArr);
