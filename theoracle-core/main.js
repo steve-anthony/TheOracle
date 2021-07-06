@@ -37,6 +37,9 @@ async function main() {
 	// call safemoon
 	await safemoon();
 
+	// call btc
+	await btc();
+
 	// end of the script
 	console.log(today.toISOString() + " - This is the end");
 	await mongoService.close();
