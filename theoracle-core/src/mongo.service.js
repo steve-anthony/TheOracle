@@ -21,6 +21,7 @@ module.exports = class MongoService {
 	static COINS = "coins";
 	static REPORT = "report";
 	static SAFEMOON = "safemoon";
+	static BTC = "btc";
 
 	constructor() {
 

@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { BTCComponent } from './btc/btc.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
     CoinComponent,
     SafemoonComponent,
     ArrayNumberComponent,
-    SafemoonComputeComponent
+    SafemoonComputeComponent,
+    BTCComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [

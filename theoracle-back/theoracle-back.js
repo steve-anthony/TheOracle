@@ -100,3 +100,20 @@ app.get('/safemoon', async function (req, res) {
 		res.json(reports);
 	}
 });
+
+
+app.get('/btc', async function (req, res) {
+	if (mocked) {
+		console.log("MOCKED REPORT");
+		let fileContent = await fs.readFile('data/btc.json');
+
+		res.json(JSON.parse(fileContent));
+
+	} else {
+		let reports = await mongoService.findAndSort(MongoService.BTC, {}, { timestamp: 1 }, {});
+
+		console.log(reports.length);
+
+		res.json(reports);
+	}
+});

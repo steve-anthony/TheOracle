@@ -6,12 +6,14 @@ var kill = require('tree-kill');
 const CoreService = require('./src/core.service');
 const TwitterService = require('./src/twitter.service');
 const SafemoonService = require('./src/safemoon.service');
+const BTCService = require('./src/btc.service');
 
 let youtubeService = YoutubeService.getInstance();
 let mongoService = MongoService.getInstance();
 let coreService = CoreService.getInstance();
 let twitterService = TwitterService.getInstance();
 let safemoonService = SafemoonService.getInstance();
+let bTCService = BTCService.getInstance();
 
 console.log();
 console.log("---------------------------------------------");
@@ -137,6 +139,33 @@ async function safemoon() {
 	return;
 }
 
+async function btc() {
+
+	let today = new Date();
+	console.log(today.toISOString() + ' - BTC');
+
+	// connect to the base
+	await mongoService.init();
+
+	let balanceBTC = await bTCService.getBalances();
+
+	// fetch the coin list and update this in database
+	const coins = await coreService.simpleGetCoins();
+	let btcPrice = null;
+	try {
+		btcPrice = coins.filter(a => a.symbol == "btc")[0]["price"];
+	} catch {
+		console.log("impossible to get btc price");
+	}
+
+	let reportBTC = await bTCService.createReport(balanceBTC, btcPrice);
+
+	await mongoService.insert(MongoService.BTC, reportBTC);
+
+	await mongoService.close();
+	return;
+}
+
 var mineProc = null;
 
 async function mine(statut) {
@@ -221,6 +250,9 @@ async function killMine() {
 
 			await mine(true);
 		});
+	} else if (myArgs[0] == "btc") {
+		console.log('BTC.');
+		await btc();
 	}
 
 })()

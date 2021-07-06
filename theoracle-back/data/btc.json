@@ -1,0 +1,280 @@
+[
+    {
+        "_id": "60e4568791f29a57f9bc1422",
+        "timestamp": "2021-07-06T13:11:35.860Z",
+        "balances": {
+            "bigWhales": 7924749,
+            "whales": 8182037,
+            "dolpins": 1668213,
+            "others": 230968
+        },
+        "data": [
+            {
+                "range": "(0 - 0.001)",
+                "adressesCount": "19540041",
+                "adressesPercent": "51.09",
+                "coins": "3962",
+                "usd": "136123599",
+                "coinsPercent": "0.02"
+            },
+            {
+                "range": "[0.001 - 0.01)",
+                "adressesCount": "9698629",
+                "adressesPercent": "25.36",
+                "coins": "36911",
+                "usd": "1268276532",
+                "coinsPercent": "0.2"
+            },
+            {
+                "range": "[0.01 - 0.1)",
+                "adressesCount": "5848342",
+                "adressesPercent": "15.29",
+                "coins": "190095",
+                "usd": "6531787158",
+                "coinsPercent": "1.01"
+            },
+            {
+                "range": "[0.1 - 1)",
+                "adressesCount": "2366369",
+                "adressesPercent": "6.19",
+                "coins": "740508",
+                "usd": "25444336793",
+                "coinsPercent": "3.95"
+            },
+            {
+                "range": "[1 - 10)",
+                "adressesCount": "649582",
+                "adressesPercent": "1.7",
+                "coins": "1668213",
+                "usd": "57320864253",
+                "coinsPercent": "8.9"
+            },
+            {
+                "range": "[10 - 100)",
+                "adressesCount": "130441",
+                "adressesPercent": "0.34",
+                "coins": "4245845",
+                "usd": "145889921379",
+                "coinsPercent": "22.65"
+            },
+            {
+                "range": "[100 - 1,000)",
+                "adressesCount": "13915",
+                "adressesPercent": "0.04",
+                "coins": "3936192",
+                "usd": "135250047399",
+                "coinsPercent": "21"
+            },
+            {
+                "range": "[1,000 - 10,000)",
+                "adressesCount": "2065",
+                "adressesPercent": "0.01",
+                "coins": "5190096",
+                "usd": "178334998277",
+                "coinsPercent": "27.69"
+            },
+            {
+                "range": "[10,000 - 100,000)",
+                "adressesCount": "80",
+                "adressesPercent": "0",
+                "coins": "2051151",
+                "usd": "70478857026",
+                "coinsPercent": "10.94"
+            },
+            {
+                "range": "[100,000 - 1,000,000)",
+                "adressesCount": "4",
+                "adressesPercent": "0",
+                "coins": "683502",
+                "usd": "23485573791",
+                "coinsPercent": "3.65"
+            }
+        ],
+        "price": 34479.78656277504
+    },
+    {
+        "_id": "60e4568791f29a57f9bc1422",
+        "timestamp": "2021-07-07T13:11:35.860Z",
+        "balances": {
+            "bigWhales": 9924749,
+            "whales": 7182037,
+            "dolpins": 68213,
+            "others": 968
+        },
+        "data": [
+            {
+                "range": "(0 - 0.001)",
+                "adressesCount": "19540041",
+                "adressesPercent": "51.09",
+                "coins": "3962",
+                "usd": "136123599",
+                "coinsPercent": "0.02"
+            },
+            {
+                "range": "[0.001 - 0.01)",
+                "adressesCount": "9698629",
+                "adressesPercent": "25.36",
+                "coins": "36911",
+                "usd": "1268276532",
+                "coinsPercent": "0.2"
+            },
+            {
+                "range": "[0.01 - 0.1)",
+                "adressesCount": "5848342",
+                "adressesPercent": "15.29",
+                "coins": "190095",
+                "usd": "6531787158",
+                "coinsPercent": "1.01"
+            },
+            {
+                "range": "[0.1 - 1)",
+                "adressesCount": "2366369",
+                "adressesPercent": "6.19",
+                "coins": "740508",
+                "usd": "25444336793",
+                "coinsPercent": "3.95"
+            },
+            {
+                "range": "[1 - 10)",
+                "adressesCount": "649582",
+                "adressesPercent": "1.7",
+                "coins": "1668213",
+                "usd": "57320864253",
+                "coinsPercent": "8.9"
+            },
+            {
+                "range": "[10 - 100)",
+                "adressesCount": "130441",
+                "adressesPercent": "0.34",
+                "coins": "4245845",
+                "usd": "145889921379",
+                "coinsPercent": "22.65"
+            },
+            {
+                "range": "[100 - 1,000)",
+                "adressesCount": "13915",
+                "adressesPercent": "0.04",
+                "coins": "3936192",
+                "usd": "135250047399",
+                "coinsPercent": "21"
+            },
+            {
+                "range": "[1,000 - 10,000)",
+                "adressesCount": "2065",
+                "adressesPercent": "0.01",
+                "coins": "5190096",
+                "usd": "178334998277",
+                "coinsPercent": "27.69"
+            },
+            {
+                "range": "[10,000 - 100,000)",
+                "adressesCount": "80",
+                "adressesPercent": "0",
+                "coins": "2051151",
+                "usd": "70478857026",
+                "coinsPercent": "10.94"
+            },
+            {
+                "range": "[100,000 - 1,000,000)",
+                "adressesCount": "4",
+                "adressesPercent": "0",
+                "coins": "683502",
+                "usd": "23485573791",
+                "coinsPercent": "3.65"
+            }
+        ],
+        "price": 32479.78656277504
+    },
+    {
+        "timestamp": "2021-07-08T13:11:35.860Z",
+        "balances": {
+            "bigWhales": 19924749,
+            "whales": 17182037,
+            "dolpins": 168213,
+            "others": 1968
+        },
+        "data": [
+            {
+                "range": "(0 - 0.001)",
+                "adressesCount": "19540041",
+                "adressesPercent": "51.09",
+                "coins": "3962",
+                "usd": "136123599",
+                "coinsPercent": "0.02"
+            },
+            {
+                "range": "[0.001 - 0.01)",
+                "adressesCount": "9698629",
+                "adressesPercent": "25.36",
+                "coins": "36911",
+                "usd": "1268276532",
+                "coinsPercent": "0.2"
+            },
+            {
+                "range": "[0.01 - 0.1)",
+                "adressesCount": "5848342",
+                "adressesPercent": "15.29",
+                "coins": "190095",
+                "usd": "6531787158",
+                "coinsPercent": "1.01"
+            },
+            {
+                "range": "[0.1 - 1)",
+                "adressesCount": "2366369",
+                "adressesPercent": "6.19",
+                "coins": "740508",
+                "usd": "25444336793",
+                "coinsPercent": "3.95"
+            },
+            {
+                "range": "[1 - 10)",
+                "adressesCount": "649582",
+                "adressesPercent": "1.7",
+                "coins": "1668213",
+                "usd": "57320864253",
+                "coinsPercent": "8.9"
+            },
+            {
+                "range": "[10 - 100)",
+                "adressesCount": "130441",
+                "adressesPercent": "0.34",
+                "coins": "4245845",
+                "usd": "145889921379",
+                "coinsPercent": "22.65"
+            },
+            {
+                "range": "[100 - 1,000)",
+                "adressesCount": "13915",
+                "adressesPercent": "0.04",
+                "coins": "3936192",
+                "usd": "135250047399",
+                "coinsPercent": "21"
+            },
+            {
+                "range": "[1,000 - 10,000)",
+                "adressesCount": "2065",
+                "adressesPercent": "0.01",
+                "coins": "5190096",
+                "usd": "178334998277",
+                "coinsPercent": "27.69"
+            },
+            {
+                "range": "[10,000 - 100,000)",
+                "adressesCount": "80",
+                "adressesPercent": "0",
+                "coins": "2051151",
+                "usd": "70478857026",
+                "coinsPercent": "10.94"
+            },
+            {
+                "range": "[100,000 - 1,000,000)",
+                "adressesCount": "4",
+                "adressesPercent": "0",
+                "coins": "683502",
+                "usd": "23485573791",
+                "coinsPercent": "3.65"
+            }
+        ],
+        "price": 39479.78656277504
+    }
+]

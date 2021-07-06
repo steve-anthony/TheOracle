@@ -1,0 +1,15 @@
+<div>
+    <h1>BTC Holders</h1>
+
+    <button (click)="onLog()">
+        <span *ngIf="isLog">
+            LOG
+        </span>
+        <span *ngIf="!isLog">
+            NORMAL
+        </span>
+    </button>
+    <p>Balance by type of holder</p>
+    <div echarts [options]="optionsIndice" class="demo-chart"></div>
+    <p>BTC Price</p>
+    <div echarts [options]="optionsPrice" class="demo-chart"></div>
