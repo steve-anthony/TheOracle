@@ -103,7 +103,11 @@ module.exports = class BTCService {
 			'5': 'coinsPercent',
 		}
 
-		console.log("balanceArr", balanceArr);
+		console.log("balanceArr");
+
+		await page.evaluate(_ => { });
+
+		console.log("evaluate");
 
 		let resultArr = [];
 		for (let j = 0; j < 10; j++) {
