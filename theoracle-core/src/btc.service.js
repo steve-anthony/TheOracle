@@ -82,7 +82,7 @@ module.exports = class BTCService {
 		// bypass cookies
 		console.log("load BTC page...");
 		await page.goto('https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html');
-		await navigationPromise;
+
 		for (let i = 0; i < 3; i++) {
 			try {
 				console.log("waitForSelector");
@@ -94,6 +94,7 @@ module.exports = class BTCService {
 		}
 
 		await page.waitFor(2000);
+		await navigationPromise;
 		console.log("page load");
 
 		// get comments
