@@ -86,7 +86,7 @@ module.exports = class BTCService {
 		await page.waitFor(2000);
 
 		console.log("waitForSelector");
-		//await page.waitForSelector('.table.table-condensed.bb tr td');
+		await page.waitForSelector('.table.table-condensed.bb tr td');
 
 		//await navigationPromise;
 		console.log("page load");
