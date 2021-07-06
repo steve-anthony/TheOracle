@@ -77,24 +77,18 @@ module.exports = class BTCService {
 		const page = await browser.newPage();
 		await page.setViewport({ width: 1280, height: 800 });
 		await page.cookies();
-		const navigationPromise = page.waitForNavigation({ waitUntil: "domcontentloaded" });
+		//const navigationPromise = page.waitForNavigation({ waitUntil: "domcontentloaded" });
 
 		// bypass cookies
 		console.log("load BTC page...");
 		await page.goto('https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html');
 
-		for (let i = 0; i < 3; i++) {
-			try {
-				console.log("waitForSelector");
-				await page.waitForSelector('.table.table-condensed.bb tr td', { timeout: 120000 });
-				break;
-			} catch (e) {
-				console.log("retry...");
-			}
-		}
-
 		await page.waitFor(2000);
-		await navigationPromise;
+
+		console.log("waitForSelector");
+		await page.waitForSelector('.table.table-condensed.bb tr td');
+
+		//await navigationPromise;
 		console.log("page load");
 
 		// get comments

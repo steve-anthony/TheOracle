@@ -79,7 +79,7 @@ module.exports = class SafemoonService {
 		const page = await browser.newPage();
 		await page.setViewport({ width: 1280, height: 800 });
 		await page.cookies();
-		const navigationPromise = page.waitForNavigation();
+		//const navigationPromise = page.waitForNavigation();
 
 		// bypass cookies
 		console.log("load safemoon page...");
@@ -92,6 +92,7 @@ module.exports = class SafemoonService {
 
 		// get comments
 		console.log("get balance...");
+		await navigationPromise;
 		const balanceArr = await page.$$("#ContentPlaceHolder1_divFilteredHolderBalance",
 			elements => elements.map(item => item.innerText));
 		console.log("innerText...");
