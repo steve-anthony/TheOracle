@@ -83,17 +83,18 @@ module.exports = class BTCService {
 		console.log("load BTC page...");
 		await page.goto('https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html');
 
-		await page.waitForSelector('table');
+		console.log("waitForSelector");
+		await page.waitForSelector('.table.table-condensed.bb tr td');
 
 		await page.waitFor(2000);
 		console.log("page load");
 
 		// get comments
-		console.log("get balance...");
-		const balanceArr = await page.$$(".table.table-condensed.bb tr td",
-			elements => elements.map(item => item.innerText));
-		console.log("innerText...");
-		await page.waitFor(2000);
+		//console.log("get balance...");
+		//const balanceArr = await page.$$(".table.table-condensed.bb tr td",
+		//	elements => elements.map(item => item.innerText));
+		//console.log("innerText...");
+		//await page.waitFor(2000);
 		let collumName = {
 			'0': 'range',
 			'1': 'adressesCount',
@@ -103,13 +104,7 @@ module.exports = class BTCService {
 			'5': 'coinsPercent',
 		}
 
-		console.log("balanceArr");
-
-		await page.evaluate(_ => {
-
-		});
-
-		console.log("evaluate");
+		console.log("loop");
 
 		let resultArr = [];
 		for (let j = 0; j < 10; j++) {
