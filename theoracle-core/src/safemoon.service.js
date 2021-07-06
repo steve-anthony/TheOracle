@@ -97,7 +97,7 @@ module.exports = class SafemoonService {
 		console.log("innerText...");
 		let balance = await (await balanceArr[0].getProperty('innerText')).jsonValue();
 
-		console.log("trim...");
+		console.log("trim...", balance);
 		balance = balance.replace("BALANCE", "");
 		balance = balance.replace("SAFEMOON", "");
 		balance = balance.replaceAll(",", "");
