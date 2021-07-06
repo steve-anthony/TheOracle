@@ -103,10 +103,13 @@ module.exports = class BTCService {
 			'5': 'coinsPercent',
 		}
 
+		console.log("balanceArr", balanceArr);
+
 		let resultArr = [];
 		for (let j = 0; j < 10; j++) {
 			let line = {};
 			for (let i = 0; i < 6; i++) {
+				console.log((j * 6) + i);
 				let balance = await (await balanceArr[(j * 6) + i].getProperty('innerText')).jsonValue();
 				balance = balance.trim();
 				line[collumName[i]] = balance;
