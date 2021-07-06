@@ -120,9 +120,6 @@ async function safemoon() {
 	let today = new Date();
 	console.log(today.toISOString() + ' - Safemoon');
 
-	// connect to the base
-	await mongoService.init();
-
 	let balanceSafemoon = await safemoonService.getSafemoonBiggestWhaleBalance();
 
 	// fetch the coin list and update this in database
@@ -138,7 +135,6 @@ async function safemoon() {
 
 	await mongoService.insert(MongoService.SAFEMOON, reportSafemoon);
 
-	await mongoService.close();
 	return;
 }
 
@@ -146,9 +142,6 @@ async function btc() {
 
 	let today = new Date();
 	console.log(today.toISOString() + ' - BTC');
-
-	// connect to the base
-	await mongoService.init();
 
 	let balanceBTC = await bTCService.getBalances();
 
@@ -165,7 +158,6 @@ async function btc() {
 
 	await mongoService.insert(MongoService.BTC, reportBTC);
 
-	await mongoService.close();
 	return;
 }
 
@@ -240,7 +232,9 @@ async function killMine() {
 	} else if (myArgs[0] == "tests") {
 		await tests();
 	} else if (myArgs[0] == "safemoon") {
+		await mongoService.init();
 		await safemoon();
+		await mongoService.close();
 	}
 	else if (myArgs[0] == "mongo") {
 		mongoTest();
@@ -255,7 +249,11 @@ async function killMine() {
 		});
 	} else if (myArgs[0] == "btc") {
 		console.log('BTC.');
+
+		// connect to the base
+		await mongoService.init();
 		await btc();
+		await mongoService.close();
 	}
 
 })()

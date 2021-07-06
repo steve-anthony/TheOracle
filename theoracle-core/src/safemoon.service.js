@@ -85,7 +85,7 @@ module.exports = class SafemoonService {
 		console.log("load safemoon page...");
 		await page.goto('https://bscscan.com/token/0x8076c74c5e3f5852037f31ff0093eeb8c8add8d3?a=0x0000000000000000000000000000000000000001');
 
-		await page.waitForSelector('#ContentPlaceHolder1_divFilteredHolderBalance');
+		await page.waitForSelector('#ContentPlaceHolder1_divFilteredHolderBalance', { timeout: 120000 });
 
 		await page.waitFor(2000);
 		console.log("page load");
