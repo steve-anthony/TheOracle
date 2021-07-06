@@ -38,7 +38,7 @@ async function main() {
 	await safemoon();
 
 	// call btc
-	await btc();
+	//await btc();
 
 	// end of the script
 	console.log(today.toISOString() + " - This is the end");
