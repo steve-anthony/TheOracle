@@ -250,10 +250,18 @@ async function killMine() {
 	} else if (myArgs[0] == "btc") {
 		console.log('BTC.');
 
-		// connect to the base
 		await mongoService.init();
 		await btc();
 		await mongoService.close();
+
+	} else if (myArgs[0] == "custom") {
+		console.log('custom.');
+
+		//let balanceBTC = await bTCService.getBalances();
+
+		let balanceSafemoon = await safemoonService.getSafemoonBiggestWhaleBalance();
+		//console.log("balanceBTC", balanceBTC);
+		console.log("balanceSafemoon", balanceSafemoon);
 	}
 
 })()

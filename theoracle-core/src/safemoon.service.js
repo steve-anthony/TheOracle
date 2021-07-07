@@ -5,6 +5,9 @@ const usetube = require('usetube');
 
 let mongoService = MongoService.getInstance();
 
+const fetch = require('node-fetch');
+var HTMLParser = require('node-html-parser');
+
 module.exports = class SafemoonService {
 
 	instance = null;
@@ -64,12 +67,38 @@ module.exports = class SafemoonService {
 
 	}
 
+	async getSafemoonBiggestWhaleBalance() {
+
+		console.log("fetch...");
+		const res = await fetch("https://bscscan.com/token/0x8076c74c5e3f5852037f31ff0093eeb8c8add8d3?a=0x0000000000000000000000000000000000000001").then(res => res.text());
+
+		console.log("parse");
+		let html = HTMLParser.parse(res);
+
+		// get comments
+		console.log("get balance html...");
+		let balance = await html.querySelector('#ContentPlaceHolder1_divFilteredHolderBalance').innerText;
+		console.log("raw", balance);
+
+		console.log("trim...", balance);
+		balance = balance.replace("BALANCE", "");
+		balance = balance.replace("Balance", "");
+		balance = balance.replace("SAFEMOON", "");
+		balance = balance.replaceAll(",", "");
+		balance = balance.trim();
+
+		let balanceNumber = Number(balance);
+		console.log("balance", balanceNumber);
+
+		return balanceNumber;
+	}
+
 	/**
 	 * Scrap youtube to retreive comments under a youtube video
 	 * @param {*} youtubeId 
 	 * @returns 
 	 */
-	async getSafemoonBiggestWhaleBalance() {
+	async getSafemoonBiggestWhaleBalanceOLD() {
 
 		//const fileContent = await fs.readFile('data/comments.json');
 
@@ -87,7 +116,7 @@ module.exports = class SafemoonService {
 
 		await page.waitForSelector('#ContentPlaceHolder1_divFilteredHolderBalance', { timeout: 120000 });
 
-		await page.waitFor(2000);
+		await page.waitFor(9000);
 		console.log("page load");
 
 		// get comments
