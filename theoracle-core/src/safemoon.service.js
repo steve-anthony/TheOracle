@@ -92,7 +92,6 @@ module.exports = class SafemoonService {
 
 		// get comments
 		console.log("get balance...");
-		await navigationPromise;
 		const balanceArr = await page.$$("#ContentPlaceHolder1_divFilteredHolderBalance",
 			elements => elements.map(item => item.innerText));
 		console.log("innerText...");
