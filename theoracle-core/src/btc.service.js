@@ -6,6 +6,7 @@ const fetch = require('node-fetch');
 let mongoService = MongoService.getInstance();
 var HTMLParser = require('node-html-parser');
 const cloudflareScraper = require('cloudflare-scraper');
+var userAgent = require('user-agents');
 
 module.exports = class BTCService {
 
@@ -75,7 +76,7 @@ module.exports = class BTCService {
 		}
 	}
 
-	async getBalances() {
+	async getBalancesNEW() {
 
 		let resultArr = [];
 
@@ -138,7 +139,7 @@ module.exports = class BTCService {
 	 * @param {*} youtubeId 
 	 * @returns 
 	 */
-	async getBalancesOld() {
+	async getBalances() {
 
 		//const fileContent = await fs.readFile('data/comments.json');
 
@@ -148,6 +149,7 @@ module.exports = class BTCService {
 		const page = await browser.newPage();
 		await page.setViewport({ width: 1280, height: 800 });
 		await page.cookies();
+		await page.setUserAgent(userAgent.toString())
 		//const navigationPromise = page.waitForNavigation({ waitUntil: "domcontentloaded" });
 
 		// bypass cookies

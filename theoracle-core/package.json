@@ -12,6 +12,7 @@
     "puppeteer": "^8.0.0",
     "request": "^2.88.2",
     "tree-kill": "^1.2.2",
+    "user-agents": "^1.0.706",
     "usetube": "^2.0.5",
     "util": "^0.12.3",
     "youtube-comment-api": "^3.0.2",
