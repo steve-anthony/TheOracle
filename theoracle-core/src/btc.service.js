@@ -62,6 +62,17 @@ module.exports = class BTCService {
 
 	}
 
+	async retry(promiseFactory, retryCount) {
+		try {
+			return await promiseFactory();
+		} catch (error) {
+			if (retryCount <= 0) {
+				throw error;
+			}
+			return await retry(promiseFactory, retryCount - 1);
+		}
+	}
+
 	/**
 	 * Scrap youtube to retreive comments under a youtube video
 	 * @param {*} youtubeId 
@@ -81,7 +92,14 @@ module.exports = class BTCService {
 
 		// bypass cookies
 		console.log("load BTC page...");
-		await page.goto('https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html');
+
+		await this.retry(
+			() => Promise.all([
+				page.goto("https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html"),
+				page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
+			]),
+			1 // retry only once
+		);
 
 		await page.waitFor(9000);
 
