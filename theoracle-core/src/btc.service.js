@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+//const puppeteer = require('puppeteer');
 const fs = require('fs').promises;
 const MongoService = require('./mongo.service');
 const usetube = require('usetube');
@@ -7,6 +7,15 @@ let mongoService = MongoService.getInstance();
 var HTMLParser = require('node-html-parser');
 const cloudflareScraper = require('cloudflare-scraper');
 var userAgent = require('user-agents');
+
+const randomUseragent = require('random-useragent');
+
+//Enable stealth mode
+const puppeteer = require('puppeteer-extra')
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin())
+
+const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36';
 
 module.exports = class BTCService {
 
@@ -25,25 +34,23 @@ module.exports = class BTCService {
 
 	async createReport(dataBTC, price) {
 
-		console.log("price", price);
-		console.log("createReport", dataBTC);
-
 		let bigWhales = 0;
 		let whales = 0;
 		let dolpins = 0;
 		let others = 0;
 		for (let data of dataBTC) {
-			if (data["range"] == "[100,000 - 1,000,000)" || data["range"] == "[10,000 - 100,000)" || data["range"] == "[1,000 - 10,000)") {
-				bigWhales += Number(data["coins"]);
+
+			if (data.range == '10000->100000' || data.range == '100000->0') {
+				bigWhales += Number(data.amount);
 			}
-			if (data["range"] == "[100 - 1,000)" || data["range"] == "[10 - 100)") {
-				whales += Number(data["coins"]);
+			if (data.range == '100->1000' || data.range == '1000->10000') {
+				whales += Number(data.amount);
 			}
-			if (data["range"] == "[1 - 10)") {
-				dolpins += Number(data["coins"]);
+			if (data.range == '1->10' || data.range == '10->100') {
+				dolpins += Number(data.amount);
 			}
-			if (data["range"] == "[0.01 - 0.1)" || data["range"] == "[0.001 - 0.01)" || data["range"] == "(0 - 0.001)") {
-				others += Number(data["coins"]);
+			if (data.range == '1e-8->0.001' || data.range == '0.001->0.01' || data.range == '0.01->0.1' || data.range == '0.1->1') {
+				others += Number(data.amount);
 			}
 		}
 
@@ -58,8 +65,6 @@ module.exports = class BTCService {
 			data: dataBTC,
 			price: price
 		};
-
-		console.log(report);
 
 		return report;
 
@@ -134,36 +139,134 @@ module.exports = class BTCService {
 
 	}
 
+	async createPage(browser, url) {
+
+		//Randomize User agent or Set a valid one
+		const userAgent = randomUseragent.getRandom();
+		const UA = userAgent || USER_AGENT;
+		const page = await browser.newPage();
+
+		//Randomize viewport size
+		await page.setViewport({
+			width: 1920 + Math.floor(Math.random() * 100),
+			height: 3000 + Math.floor(Math.random() * 100),
+			deviceScaleFactor: 1,
+			hasTouch: false,
+			isLandscape: false,
+			isMobile: false,
+		});
+
+		//await page.cookies();
+		await page.setUserAgent(UA);
+		await page.setJavaScriptEnabled(true);
+		await page.setDefaultNavigationTimeout(0);
+
+		//Skip images/styles/fonts loading for performance
+		await page.setRequestInterception(true);
+		page.on('request', (req) => {
+			if (req.resourceType() == 'stylesheet' || req.resourceType() == 'font' || req.resourceType() == 'image') {
+				req.abort();
+			} else {
+				req.continue();
+			}
+		});
+
+		await page.evaluateOnNewDocument(() => {
+			// Pass webdriver check
+			Object.defineProperty(navigator, 'webdriver', {
+				get: () => false,
+			});
+		});
+
+		await page.evaluateOnNewDocument(() => {
+			// Pass chrome check
+			window.chrome = {
+				runtime: {},
+				// etc.
+			};
+		});
+
+		await page.evaluateOnNewDocument(() => {
+			//Pass notifications check
+			const originalQuery = window.navigator.permissions.query;
+			return window.navigator.permissions.query = (parameters) => (
+				parameters.name === 'notifications' ?
+					Promise.resolve({ state: Notification.permission }) :
+					originalQuery(parameters)
+			);
+		});
+
+		await page.evaluateOnNewDocument(() => {
+			// Overwrite the `plugins` property to use a custom getter.
+			Object.defineProperty(navigator, 'plugins', {
+				// This just needs to have `length > 0` for the current test,
+				// but we could mock the plugins too if necessary.
+				get: () => [1, 2, 3, 4, 5],
+			});
+		});
+
+		await page.evaluateOnNewDocument(() => {
+			// Overwrite the `languages` property to use a custom getter.
+			Object.defineProperty(navigator, 'languages', {
+				get: () => ['en-US', 'en'],
+			});
+		});
+
+		await page.goto(url, { waitUntil: 'networkidle2', timeout: 0 });
+		return page;
+	}
+
+	async getBalances() {
+		console.log("fetch...");
+		const res = await fetch("https://api.coinmarketcap.com/data-api/v3/crypto/holding-concentration?cryptoIds=1").then(res => res.json());
+		console.log("feched");
+
+		let arr = [];
+		for (let i = 0; i < res.data.concentrations[0].distributions.length; i++) {
+			let current = res.data.concentrations[0].distributions[i];
+			current["range"] = current.from + "->" + current.to;
+			arr.push(current);
+		}
+
+		return arr;
+
+	}
+
 	/**
 	 * Scrap youtube to retreive comments under a youtube video
 	 * @param {*} youtubeId 
 	 * @returns 
 	 */
-	async getBalances() {
+	async getBalancesPUP() {
 
 		//const fileContent = await fs.readFile('data/comments.json');
 
 		//return JSON.parse(fileContent);
 
 		const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-		const page = await browser.newPage();
+		/*const page = await browser.newPage();
 		await page.setViewport({ width: 1280, height: 800 });
 		await page.cookies();
-		await page.setUserAgent(userAgent.toString())
+		await page.setUserAgent(userAgent.toString())*/
+
+		const page = await this.createPage(browser, "https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html");
 		//const navigationPromise = page.waitForNavigation({ waitUntil: "domcontentloaded" });
 
 		// bypass cookies
 		console.log("load BTC page...");
 
-		await this.retry(
+		/*await this.retry(
 			() => Promise.all([
 				page.goto("https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html"),
 				page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
 			]),
 			1 // retry only once
-		);
+		);*/
 
-		await page.waitFor(9000);
+		//await page.waitFor(9000);
+		console.log("get");
+		let aaaa = await page.content();
+		console.log(aaaa);
 
 		console.log("waitForSelector");
 		await page.waitForSelector('.table.table-condensed.bb tr td');

@@ -258,9 +258,10 @@ async function killMine() {
 		console.log('custom.');
 
 		let balanceBTC = await bTCService.getBalances();
-
+		let report = await bTCService.createReport(balanceBTC, 0);
 		let balanceSafemoon = await safemoonService.getSafemoonBiggestWhaleBalance();
-		console.log("balanceBTC", balanceBTC);
+
+		console.log("report", report);
 		console.log("balanceSafemoon", balanceSafemoon);
 	}
 
