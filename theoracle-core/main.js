@@ -257,10 +257,10 @@ async function killMine() {
 	} else if (myArgs[0] == "custom") {
 		console.log('custom.');
 
-		//let balanceBTC = await bTCService.getBalances();
+		let balanceBTC = await bTCService.getBalances();
 
 		let balanceSafemoon = await safemoonService.getSafemoonBiggestWhaleBalance();
-		//console.log("balanceBTC", balanceBTC);
+		console.log("balanceBTC", balanceBTC);
 		console.log("balanceSafemoon", balanceSafemoon);
 	}
 
