@@ -72,6 +72,7 @@ module.exports = class BTCService {
 		console.log("fetch...");
 		const res = await fetch("https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html").then(res => res.text());
 		console.log("feched");
+		console.log(res);
 
 		let html = HTMLParser.parse(res);
 
