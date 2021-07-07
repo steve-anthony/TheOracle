@@ -69,13 +69,34 @@ module.exports = class BTCService {
 	 */
 	async getBalances() {
 
-		console.log("fetch...");
-		const res = await fetch("https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html").then(res => res.text());
-		console.log("feched");
-		console.log(res);
+		//const fileContent = await fs.readFile('data/comments.json');
 
-		let html = HTMLParser.parse(res);
+		//return JSON.parse(fileContent);
 
+		const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+		const page = await browser.newPage();
+		await page.setViewport({ width: 1280, height: 800 });
+		await page.cookies();
+		//const navigationPromise = page.waitForNavigation({ waitUntil: "domcontentloaded" });
+
+		// bypass cookies
+		console.log("load BTC page...");
+		await page.goto('https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html');
+
+		await page.waitFor(9000);
+
+		console.log("waitForSelector");
+		await page.waitForSelector('.table.table-condensed.bb tr td');
+
+		//await navigationPromise;
+		console.log("page load");
+
+		// get comments
+		//console.log("get balance...");
+		//const balanceArr = await page.$$(".table.table-condensed.bb tr td",
+		//	elements => elements.map(item => item.innerText));
+		//console.log("innerText...");
+		//await page.waitFor(2000);
 		let collumName = {
 			'0': 'range',
 			'1': 'adressesCount',
@@ -92,8 +113,14 @@ module.exports = class BTCService {
 			let line = {};
 			for (let i = 0; i < 6; i++) {
 
+				//let balance = await (await balanceArr[(j * 6) + i].getProperty('innerText')).jsonValue();
 				let index = (j * 6) + i;
-				let balance = html.querySelectorAll('.table.table-condensed.bb tr td')[index].innerText;
+				let balance = await page.evaluate((index) => {
+
+					let element = document.querySelectorAll('.table.table-condensed.bb tr td')[index].innerText;
+					return element;
+
+				}, index);
 				balance = balance.trim();
 				line[collumName[i]] = balance;
 
@@ -112,8 +139,9 @@ module.exports = class BTCService {
 
 		console.log(resultArr);
 
-		return resultArr;
+		await browser.close();
 
+		return resultArr;
 	}
 
 }
