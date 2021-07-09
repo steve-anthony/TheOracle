@@ -28,7 +28,7 @@ console.log();
 async function main() {
 
 	let today = new Date();
-	console.log(today.toISOString() + ' - Starting...');
+	console.log(new Date().toISOString() + " > " + 'main Starting...');
 	//return;
 
 	// connect to the base
@@ -41,7 +41,7 @@ async function main() {
 	await btc();
 
 	// end of the script
-	console.log(today.toISOString() + " - This is the end");
+	console.log(new Date().toISOString() + " > " + "main the end");
 	await mongoService.close();
 
 	return;
@@ -117,8 +117,7 @@ async function tests() {
 
 async function safemoon() {
 
-	let today = new Date();
-	console.log(today.toISOString() + ' - Safemoon');
+	console.log(new Date().toISOString() + " > " + 'Safemoon');
 
 	let balanceSafemoon = await safemoonService.getSafemoonBiggestWhaleBalance();
 
@@ -128,7 +127,7 @@ async function safemoon() {
 	try {
 		safemoonPrice = coins.filter(a => a.symbol == "safemoon")[0]["price"];
 	} catch {
-		console.log("impossible to get safemoon price");
+		console.log(new Date().toISOString() + " > " + "impossible to get safemoon price");
 	}
 
 	let reportSafemoon = await safemoonService.createReport(balanceSafemoon, safemoonPrice);
@@ -140,12 +139,12 @@ async function safemoon() {
 
 async function btc() {
 
-	let today = new Date();
-	console.log(today.toISOString() + ' - BTC');
+	console.log(new Date().toISOString() + " > " + 'BTC');
 
 	let balanceBTC = await bTCService.getBalances();
 
 	// fetch the coin list and update this in database
+	console.log(new Date().toISOString() + " > " + 'get coins from cmc');
 	const coins = await coreService.simpleGetCoins();
 	let btcPrice = null;
 	try {
@@ -154,6 +153,7 @@ async function btc() {
 		console.log("impossible to get btc price");
 	}
 
+	console.log(new Date().toISOString() + " > " + 'create report');
 	let reportBTC = await bTCService.createReport(balanceBTC, btcPrice);
 
 	await mongoService.insert(MongoService.BTC, reportBTC);
@@ -163,16 +163,23 @@ async function btc() {
 
 var mineProc = null;
 
+var os = require('os');
+
 async function mine(statut) {
 
 	if (statut) {
 
 		let k = await killMine();
-		console.log("kill = ", k);
+		console.log(new Date().toISOString() + " > " + "kill = ", k);
 
-		console.log("new process mine");
+		console.log(new Date().toISOString() + " > " + "type = " + os.type());
+		let mineApp = "./xmrig";
+		if (os.type() == "Darwin") {
+			mineApp = "node fakeMine.js"
+		}
+
 		mineProc = await require('child_process').exec('./xmrig');
-
+		console.log(new Date().toISOString() + " > " + "new process mine " + mineProc.pid);
 		//mineProc.stdout.pipe(process.stdout);
 
 	} else {
@@ -187,10 +194,10 @@ async function killMine() {
 
 		return await new Promise(resolve => {
 
-			console.log("end process mine", mineProc.pid);
+			console.log(new Date().toISOString() + " > " + "end process mine", mineProc.pid);
 
 			mineProc.on("exit", async () => {
-				console.log("___");
+				console.log(new Date().toISOString() + " > " + "mine event exit");
 				mineProc = null;
 				resolve(true);
 			});
@@ -218,7 +225,7 @@ async function killMine() {
 	var myArgs = process.argv.slice(2);
 
 	if (myArgs.length == 0) {
-		console.log('Start cron core.');
+		console.log('Start cron core v2.');
 		cron.schedule('0 0 * * *', async () => {
 			await mine(false);
 			await main();

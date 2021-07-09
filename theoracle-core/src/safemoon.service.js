@@ -69,26 +69,33 @@ module.exports = class SafemoonService {
 
 	async getSafemoonBiggestWhaleBalance() {
 
-		console.log("fetch...");
+		console.log(new Date().toISOString() + " > " + "getSafemoonBiggestWhaleBalance...");
 		const res = await fetch("https://bscscan.com/token/0x8076c74c5e3f5852037f31ff0093eeb8c8add8d3?a=0x0000000000000000000000000000000000000001").then(res => res.text());
 
-		console.log("parse");
+		console.log(new Date().toISOString() + " > " + "parse");
 		let html = HTMLParser.parse(res);
 
 		// get comments
-		console.log("get balance html...");
+		console.log(new Date().toISOString() + " > " + "get balance html...");
 		let balance = await html.querySelector('#ContentPlaceHolder1_divFilteredHolderBalance').innerText;
-		console.log("raw", balance);
+		console.log(new Date().toISOString() + " > " + "raw", balance);
 
-		console.log("trim...", balance);
-		balance = balance.replace("BALANCE", "");
-		balance = balance.replace("Balance", "");
-		balance = balance.replace("SAFEMOON", "");
-		balance = balance.replaceAll(",", "");
+		console.log(new Date().toISOString() + " > " + "trim...", balance);
+		balance = balance.toLowerCase();
+		console.log(new Date().toISOString() + " > " + "lower :", balance);
 		balance = balance.trim();
+		console.log(new Date().toISOString() + " > " + "trim :", balance);
+		balance = balance.replace("balance", "");
+		console.log(new Date().toISOString() + " > " + "rm balance : ", balance);
+		balance = balance.replace("safemoon", "");
+		console.log(new Date().toISOString() + " > " + "rm safemoon : ", balance);
+		balance = balance.replaceAll(",", "");
+		console.log(new Date().toISOString() + " > " + "rm , : ", balance);
+		balance = balance.trim();
+		console.log(new Date().toISOString() + " > " + "clean", "'" + balance + "'");
 
 		let balanceNumber = Number(balance);
-		console.log("balance", balanceNumber);
+		console.log(new Date().toISOString() + " > " + "balance", balanceNumber);
 
 		return balanceNumber;
 	}

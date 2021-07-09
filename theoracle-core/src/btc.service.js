@@ -34,10 +34,14 @@ module.exports = class BTCService {
 
 	async createReport(dataBTC, price) {
 
+		let today = new Date();
+
 		let bigWhales = 0;
 		let whales = 0;
 		let dolpins = 0;
 		let others = 0;
+
+		console.log(today.toISOString() + ' - count whales');
 		for (let data of dataBTC) {
 
 			if (data.range == '10000->100000' || data.range == '100000->0') {
@@ -54,6 +58,7 @@ module.exports = class BTCService {
 			}
 		}
 
+		console.log(today.toISOString() + ' - reporting');
 		const report = {
 			timestamp: new Date(),
 			balances: {
@@ -217,9 +222,12 @@ module.exports = class BTCService {
 	}
 
 	async getBalances() {
-		console.log("fetch...");
+
+		let today = new Date();
+
+		console.log(today.toISOString() + ' - fetch...');
 		const res = await fetch("https://api.coinmarketcap.com/data-api/v3/crypto/holding-concentration?cryptoIds=1").then(res => res.json());
-		console.log("feched");
+		console.log(today.toISOString() + " - feched");
 
 		let arr = [];
 		for (let i = 0; i < res.data.concentrations[0].distributions.length; i++) {
