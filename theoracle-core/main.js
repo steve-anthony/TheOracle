@@ -172,13 +172,14 @@ async function mine(statut) {
 		let k = await killMine();
 		console.log(new Date().toISOString() + " > " + "kill = ", k);
 
-		console.log(new Date().toISOString() + " > " + "type = " + os.type());
+		console.log(new Date().toISOString() + " > " + "type = '" + os.type() + "'");
 		let mineApp = "./xmrig";
 		if (os.type() == "Darwin") {
 			mineApp = "node fakeMine.js"
 		}
 
-		mineProc = await require('child_process').exec('./xmrig');
+		mineProc = await require('child_process').exec(mineApp);
+
 		console.log(new Date().toISOString() + " > " + "new process mine " + mineProc.pid);
 		//mineProc.stdout.pipe(process.stdout);
 
@@ -195,13 +196,19 @@ async function killMine() {
 		return await new Promise(resolve => {
 
 			console.log(new Date().toISOString() + " > " + "end process mine", mineProc.pid);
-
 			mineProc.on("exit", async () => {
 				console.log(new Date().toISOString() + " > " + "mine event exit");
 				mineProc = null;
 				resolve(true);
 			});
+			mineProc.on("error", async () => {
+				console.log(new Date().toISOString() + " > " + "mine event error");
+				mineProc = null;
+				resolve(true);
+			});
 
+			//mineProc.kill('SIGTERM');
+			//mineProc.kill('SIGKILL');
 			kill(mineProc.pid);
 
 			//mineProc.kill('SIGKILL');
@@ -226,9 +233,13 @@ async function killMine() {
 
 	if (myArgs.length == 0) {
 		console.log('Start cron core v2.');
+
 		cron.schedule('0 0 * * *', async () => {
+			console.log("-- stop the mining");
 			await mine(false);
+			console.log("-- main");
 			await main();
+			console.log("-- start the mining");
 			await mine(true);
 		});
 
@@ -250,8 +261,16 @@ async function killMine() {
 		console.log('Mine.');
 		await mine(true);
 		cron.schedule('* * * * *', async () => {
+			console.log("-- stop the mining");
 			await mine(false);
+			console.log("-- do my stuff");
+			let balanceBTC = await bTCService.getBalances();
+			let report = await bTCService.createReport(balanceBTC, 0);
+			let balanceSafemoon = await safemoonService.getSafemoonBiggestWhaleBalance();
 
+			console.log("report", report);
+			console.log("balanceSafemoon", balanceSafemoon);
+			console.log("-- start the mining");
 			await mine(true);
 		});
 	} else if (myArgs[0] == "btc") {
