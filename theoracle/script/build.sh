@@ -17,7 +17,7 @@ rm -rf ../../theoracle/data/dist
 
 cd ../../theoracle-front
 npm i
-ng build --prod
+ng build
 mkdir -p ../theoracle/data/dist/theoracle-front/dist
 cp -r dist/theoracle-front/* ../theoracle/data/dist/theoracle-front/dist
 cp -r ../theoracle/conf/front/theoracle-front.js ../theoracle/data/dist/theoracle-front
