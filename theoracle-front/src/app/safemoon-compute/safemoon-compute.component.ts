@@ -58,7 +58,6 @@ export class SafemoonComputeComponent implements OnInit {
 
     let currentBalance = Number(this.myBalance);
 
-
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < filteredData.length; i++) {
       const current = filteredData[i];

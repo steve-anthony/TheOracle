@@ -89,7 +89,7 @@ module.exports = class SafemoonService {
 		console.log(new Date().toISOString() + " > " + "rm balance : ", balance);
 		balance = balance.replace("safemoon", "");
 		console.log(new Date().toISOString() + " > " + "rm safemoon : ", balance);
-		balance = balance.replaceAll(",", "");
+		balance = balance.replace(/,/g, "");
 		console.log(new Date().toISOString() + " > " + "rm , : ", balance);
 		balance = balance.trim();
 		console.log(new Date().toISOString() + " > " + "clean", "'" + balance + "'");
@@ -136,7 +136,7 @@ module.exports = class SafemoonService {
 		console.log("trim...", balance);
 		balance = balance.replace("BALANCE", "");
 		balance = balance.replace("SAFEMOON", "");
-		balance = balance.replaceAll(",", "");
+		balance = balance.replace(/,/g, "");
 		balance = balance.trim();
 
 		let balanceNumber = Number(balance);

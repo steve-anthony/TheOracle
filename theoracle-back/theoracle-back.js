@@ -101,7 +101,6 @@ app.get('/safemoon', async function (req, res) {
 	}
 });
 
-
 app.get('/btc', async function (req, res) {
 	if (mocked) {
 		console.log("MOCKED REPORT");

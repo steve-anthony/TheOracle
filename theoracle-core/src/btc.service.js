@@ -125,7 +125,7 @@ module.exports = class BTCService {
 						let toClean = line[collumName[i]];
 						toClean = toClean.split(" ")[0];
 						toClean = toClean.replace("%", "");
-						toClean = toClean.replaceAll(",", "");
+						toClean = toClean.replace(/,/g, "");
 						toClean = toClean.trim();
 						line[collumName[i]] = toClean;
 					}
@@ -319,7 +319,7 @@ module.exports = class BTCService {
 					let toClean = line[collumName[i]];
 					toClean = toClean.split(" ")[0];
 					toClean = toClean.replace("%", "");
-					toClean = toClean.replaceAll(",", "");
+					toClean = toClean.replace(/,/g, "");
 					toClean = toClean.trim();
 					line[collumName[i]] = toClean;
 				}
